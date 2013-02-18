@@ -1,0 +1,84 @@
+%1. Final Report: 10 pages + 2 pages on Current Trends in Robotics
+%2. Interim Report: 5 pages + 1 page on Current Trends in Robotics
+%3. Use latex
+%4. Equations describing algorithms must be included.
+%5. Analysis plots must be included. (For example, plot error as a function of some experimental parameter such as object distance).
+%6. Include an image/photo of the robot
+%7. Figures must be your own. No figures can be copied from the web or another periodical (even if it is cited).
+%8. Figures must have sufucient captions and be referred to in the text (Using the latex ref command) The figure caption is very important. Discuss the main point of the figure within the caption. Captions are often several sentences.
+%9. Label all axes and variables in plots.
+%10. For final report: a submission of demo video is required.
+%11. Poster is required for department demo day.
+%12. Separate from the final report, each person must individually submit a paragraph describing his or her contribution to the project. The tasks of the project should be well distributed (for example, do not have one team member do the all the writing and the other do all the programming).
+
+\documentclass[12pt,twocolumn]{article}
+\begin{document}
+\begin{titlepage}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\center
+\textsc{\LARGE Rutgers University}\\[1.5cm] 
+\textsc{\Large Capstone Design}\\[0.5cm] 
+\textsc{\large Electrical and Computer Engineering}\\[0.5cm]
+\HRule \\[0.4cm]
+{ \huge \bfseries Computer Vision-Based 3D Reconstruction for Object Replication}\\[0.4cm] 
+\HRule \\[1.5cm]
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Authors:}\\
+Ryan \textsc{Cullinane}\\
+Cady \textsc{Motyka}\\
+Elie \textsc{Rosen}
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+Kristen \textsc{Dana} 
+\end{flushright}
+\end{minipage}\\[4cm]
+{\large \today}\\[3cm]
+\vfill 
+\end{titlepage}
+
+\section{Introduction}
+% A statement of the problem and its major components in your own words.
+This is the Introduction to
+\section{Methods}
+% A description of how each component in the objective is achieved.
+
+\section{Experimental Results}
+%Measurements, repeated trials (for validation), error/performance analysis (as a function of system parameters). Include plots, images or tables to describe measurement values.
+
+\section{Discussion}
+%Discuss difficulties, sources of error, future work and extensions.
+
+\section{Cost Analysis}
+%Discuss the cost entailed with a product design based on your work. Use examples from currently available equipment in your cost estimates.
+
+\section{Current Trends in Robotics and Computer Vision}
+% Describe real world robotic systems of research programs that are related to your capstone project. Research the literature and provide formal citations from publications (as obtained from IEEE Xplore or ACM Digital Library on the Rutgers library site) and periodicals (e.g. NY Times, Wall Street Journal). Do not use websites as sources for this section.
+One of the reasons that the Kinect has become so popular for computer vision projects is that it is a cheap, quick, and highly reliable for 3D measurements.
+\\
+%https://docs.google.com/file/d/0B6Kc0pBSSJ79eHdOZ2dxZ3JseW8/edit
+\indent	
+info
+\\
+%https://docs.google.com/file/d/0B6Kc0pBSSJ79UHF0U2h0d2E5NDQ/edit
+\indent	
+more
+\\
+%http://download.springer.com/static/pdf/111/chp%253A10.1007%252F978-1-4471-4640-7_1.pdf auth66=1362330926_cd812bb15c7056eaaf2e0d67d1235b82&ext=.pdf
+\indent	 A study shown in the Asia Simulation Conference in 2011 demonstrated that a calibrated Kinect can be combined with Structure from Motion to find the 3D data of a scene and reconstruct the surface by Multiview Stereo. This study proved that the Kinect was more accurate for this procedure than a SwissRanger SR-4000 3D-TOF camera and close to a medium resolution SLR Stere rig. The Kinect works by using a near-infrared laser pattern projector and an IR camera as a stereo pair to triangulate points in 3D space, then the RGB camera is used to reconstruct the correct texture to the 3D points. This RGB camera, which outputs medium quality images, can also be used for recognition. One issue this study found was that the resulting IR and Depth images were shifted. To figure out what the shift was, the Kinect recorded pictures of a circle from different distances. The shift was found to be around 4 pixels in the \emph{u} direction and three pixels in the \emph{v} direction. Even after the camera has been totally calibrated, there are a few remaining residual errors in the close range 3D measurements. An easy fix for this error was to we form a \emph{z}-correction image of \emph{z} values constructed as the pixel-wise mean of all residual images and then subtract that correction image from the \emph{z} coordinates of the 3D image.  \cite{cite1} Though the SLR Stereo was the most accurate, the error e (or the Euclidean distance between the points returned by the sensors and points reconstructed in the process of calibration) of the SR-400 was much higher than the Kinect and the SLR. This study shows that the Kinect is possible cheaper and simpler alternative to previously used cameras and rigs in the computer vision field.\\
+%http://download.springer.com/static/pdf/132/chp%253A10.1007%252F978-4-431-54216-2_24.pdf?auth66=1362331083_1772f4693c9be3cb7361c13d205fe417&ext=.pdf
+\indent	Another subject of research that is looking into using the Kinect is the simultaneous localization and mapping algorithm, used to create a 3D map of the world so that the robot can avoid collision with obstacles or walls. The SLAM problem could be solved using GPS if the robot is outside, but inside one needs to use wheel or visual odometry. Visual odometry determines the position and the orientation of the robot using the associated camera images, algorithms like Scale Invariant Feature Transformation (SIFT), used to find the interest points, and laser sensors, used to collect depth data. Since the Kinect has both the RGB camera and a laser sensor, this piece of technology is a good piece of hardware to use for robots computing the SLAM Algorithm. In the study conducted by the students in the Graduates School of Science and Technology, at Meiji University, they found that the Kinect worked well for this process for horizontal and straight movement, but they had errors when they tried to recreate an earlier experiment, this means that their algorithm successfully solves the initial problem, but accuracy fell over time.  \cite{cite2} They found that the issue was not with the Kinect, and that it could be solved using the Speed-Up Robust Feature algorithm (SURF) and Smirnov-Grubbs test to further improve the accuracy of their SLAM Algorithm. This study proved that the Kinect was a reasonable, inexpensive and non-special piece of equipment that is capable of preforming well in computer vision applications. \\
+
+
+
+\section{}\bibliographystyle{plain}
+\bibliography{Capstone}
+
+\section{Appendix} 
+%Source Code: All source code (within reason) with some descriptive comments. The code does not count in the final page count
+
+\end{document} 
