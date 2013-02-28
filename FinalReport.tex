@@ -15,6 +15,11 @@
 
 
 \documentclass[12pt,twocolumn]{article}
+\usepackage[upright]{fourier} 
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{tkz-euclide} 
+\usepackage{amsmath}
+\usetkzobj{all} 
 \usepackage{float}
 \restylefloat{table}
 \begin{document}
@@ -52,6 +57,41 @@ This is the Introduction to
 \section{Methods}
 % A description of how each component in the objective is achieved.
 
+{ \bf Calibration}\\
+{ \bf Stereo Reconstruction}\\ 
+
+\begin{tikzpicture}
+\tkzDefPoint(0,0){O_{L}}\tkzDefPoint(6,0){O_{R}}
+\tkzDefPoint(3,4){P}\tkzDefPoint(-.5,.5){leftL}
+\tkzDefPoint(1.5,.5){leftR}\tkzDefPoint(4.5,.5){rightL}
+\tkzDefPoint(6.5,.5){rightR}\tkzDefPoint(3,0){B}
+\tkzDefPoint(3,.5){A}
+
+\tkzDefPoint(.38,.5){P_{L}}
+\tkzDefPoint(5.6,.5){P_{R}}
+
+\tkzDrawSegments(O_{L},P P,O_{R} O_{R},O_{L} leftL,leftR rightL,rightR B,P)
+\tkzDrawPoint(A)
+\tkzDrawPoint(B)
+\tkzDrawPoint(P_{L})
+\tkzDrawPoint(P_{R})
+\tkzLabelPoints[below](O_{L},O_{R})
+\tkzLabelPoints[above](P)
+\tkzLabelPoints[above left](P_{L})
+
+\tkzLabelPoints[above right](P_{R})
+\tkzLabelPoints[above right](A)
+
+\tkzLabelPoints[below right](B)
+\end{tikzpicture}  
+
+P is the location of the object in the world, $O_{L}$ and $O_{R}$ are the left and right camera centers, $P_{R}$ and $P_{L}$ are the appearance of the point P in the two image planes where $P_{L}= \begin{bmatrix}
+x_{L} \\
+y_{L} \end{bmatrix} $. The distance between $O_{L}$ and $O_{R}$ is T, or the distance between the left and right camera. The distance between A and B is the focal length of the cameras. If we define the distance between P and B as distance Z, the following equation  can be used to represent the ratio between T and Z, using the theorem of like triangles: \center
+$\frac{T}{Z}=\frac{T+x_{L}-x_{R}}{Z-f} or \frac{T-{x_{R}-x_{L}}}{Z-f} $ \\ \flushleft
+Cross multiplying these equations results in: \center
+$\frac{Z(T-x_{R}-x_{L})}{Z-f} = \frac{T(Z-f)}{Z} $ \flushleft
+These calculations show that depth, or Z, is inversely proportional to disparity. This means that  $P_{L}= \frac{f^{L}P}{Z_{L}}. $
 \section{Experimental Results}
 %Measurements, repeated trials (for validation), error/performance analysis (as a function of system parameters). Include plots, images or tables to describe measurement values.
 
