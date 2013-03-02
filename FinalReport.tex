@@ -53,23 +53,25 @@ Kristen \textsc{Dana}
 
 \section{Introduction}
 % A statement of the problem and its major components in your own words.
-This is the Introduction to
+The Computer Vision-Based 3D Reconstruction for Object Replication is accomplished by using a Kinect for windows. Originally the Kinect was created for entertainment, but recently it has been introduced to the field of robotics and computer vision. The Kinect is a quick, reliable and affordable tool that uses a near-infrared laser pattern projector and an IR camera, along with the sensor and software development kit, to calculate 3D measurements.  \\
+\indent The 3D printer \\
+
 \section{Methods}
 % A description of how each component in the objective is achieved.
-
 { \bf Calibration}\\
-{ \bf Stereo Reconstruction}\\ 
+The Kinect can be calibrated in a way similar to other cameras for computer vision, the only difference being that changes in the depth have to be present  with the pattern in order to calibrate the depth camera. The Kinect needs to take an image of a checkerboard pattern.
 
+{ \bf Stereo Reconstruction}\\ 
+Once the Kinect has been calibrated, all that is needed now for the stereo reconstruction is a triangulation of viewing rays. \\
+%Depth Disparity Image
 \begin{tikzpicture}
 \tkzDefPoint(0,0){O_{L}}\tkzDefPoint(6,0){O_{R}}
 \tkzDefPoint(3,4){P}\tkzDefPoint(-.5,.5){leftL}
 \tkzDefPoint(1.5,.5){leftR}\tkzDefPoint(4.5,.5){rightL}
 \tkzDefPoint(6.5,.5){rightR}\tkzDefPoint(3,0){B}
 \tkzDefPoint(3,.5){A}
-
 \tkzDefPoint(.38,.5){P_{L}}
 \tkzDefPoint(5.6,.5){P_{R}}
-
 \tkzDrawSegments(O_{L},P P,O_{R} O_{R},O_{L} leftL,leftR rightL,rightR B,P)
 \tkzDrawPoint(A)
 \tkzDrawPoint(B)
@@ -78,20 +80,37 @@ This is the Introduction to
 \tkzLabelPoints[below](O_{L},O_{R})
 \tkzLabelPoints[above](P)
 \tkzLabelPoints[above left](P_{L})
-
 \tkzLabelPoints[above right](P_{R})
 \tkzLabelPoints[above right](A)
-
 \tkzLabelPoints[below right](B)
-\end{tikzpicture}  
-
-P is the location of the object in the world, $O_{L}$ and $O_{R}$ are the left and right camera centers, $P_{R}$ and $P_{L}$ are the appearance of the point P in the two image planes where $P_{L}= \begin{bmatrix}
+\end{tikzpicture} \\
+\indent P is the location of the object in the world, $O_{L}$ and $O_{R}$ are the left and right camera centers, $P_{R}$ and $P_{L}$ are the appearance of the point P in the two image planes where $P_{L}= \begin{bmatrix}
 x_{L} \\
-y_{L} \end{bmatrix} $. The distance between $O_{L}$ and $O_{R}$ is T, or the distance between the left and right camera. The distance between A and B is the focal length of the cameras. If we define the distance between P and B as distance Z, the following equation  can be used to represent the ratio between T and Z, using the theorem of like triangles: \center
-$\frac{T}{Z}=\frac{T+x_{L}-x_{R}}{Z-f} or \frac{T-{x_{R}-x_{L}}}{Z-f} $ \\ \flushleft
-Cross multiplying these equations results in: \center
-$\frac{Z(T-x_{R}-x_{L})}{Z-f} = \frac{T(Z-f)}{Z} $ \flushleft
-These calculations show that depth, or Z, is inversely proportional to disparity. This means that  $P_{L}= \frac{f^{L}P}{Z_{L}}. $
+y_{L} \end{bmatrix} $. The distance between $O_{L}$ and $O_{R}$ is T, or the distance between the left and right camera. The distance between A and B is the focal length of the cameras. If we define the distance between P and B as distance Z, the following equation  can be used to represent the ratio between T and Z, using the theorem of like triangles: 
+$\frac{T}{Z}=\frac{T+x_{L}-x_{R}}{Z-f} or \frac{T-{x_{R}-x_{L}}}{Z-f} $ 
+Cross multiplying these equations results in: 
+$\frac{Z(T-x_{R}-x_{L})}{Z-f} = \frac{T(Z-f)}{Z} $ 
+These calculations show that depth, or Z, is inversely proportional to disparity. This means that  $P_{L}= \frac{f^{L}P}{Z_{L}}. $ and $P_{R}= \frac{f^{R}P}{Z_{R}}. $ \\
+\indent Once there is a corresponding point pair for P from the two images, an algorithm would undo the scale and shift of the pixel points in order to obtain the 2 dimensional camera coordinates. The midpoint algorithm is then used to find the real three dimensional world coordinate that corresponds to that point pair.\\ 
+%Midpoint Algorithm Image
+\begin{tikzpicture}
+\tkzDefPoint(0,0){p_{L}}\tkzDefPoint(6,0){p_{R}}
+\tkzDefPoint(2.5,5.25){A}\tkzDefPoint(4,4.6666667){B}
+\tkzDefPoint(3,4.5){AA}\tkzDefPoint(3,3.5){BB}
+\tkzDefPoint(3,4){P}
+\tkzDrawSegments(p_{L},B AA,BB p_{R},A)
+\tkzDrawPoint(P)
+\tkzDrawPoint(p_{L})
+\tkzDrawPoint(p_{R})
+\tkzLabelPoints[above left](P)
+\tkzLabelPoints[above right](p_{R})
+\tkzLabelPoints[above left](p_{L})
+\end{tikzpicture}  
+\indent Above are the rays $\vec{O_{R}p_{R}}$ and $\vec{O_{L}p_{L}}$ are drawn. The line connecting the two vectors, that is also perpendicular to both, is obtained by taking the cross product of these two vectors. The vector from $p_{L}$ is equal to $a\vec{p_{L}}$, since point $p_{R}$ is distance T away from $p_{L}$, the vector from $p_{R}$ is equal to $b^{L}R_{R}\vec{p_{R}}+T$. The segment connecting these two vectors can be represented as $c\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$, where $a,b$ and $c$ are unknown constants that can be solved using the three equations explained above. \\
+The point P lies on the center of this line and be found by $^{L}P=a\vec{p_{L}}+\frac{c}{2}\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$ In order to get the world point M, this point would just be divided by the Intrinsic and extrinsic matrices.\\
+{ \bf Gcode Conversion}\\ 
+In order to go from the reconstructed three dimensional image file to Gcode, the objet needs to be cut up into layers. 
+
 \section{Experimental Results}
 %Measurements, repeated trials (for validation), error/performance analysis (as a function of system parameters). Include plots, images or tables to describe measurement values.
 
@@ -100,23 +119,24 @@ These calculations show that depth, or Z, is inversely proportional to disparity
 
 \section{Cost Analysis}
 %Discuss the cost entailed with a product design based on your work. Use examples from currently available equipment in your cost estimates.
-\begin{table}[H]
-    \begin{tabular}{|p{2.5cm}|l|p{4.5cm}|}
-\hline
-        Item                            & Cost      & Purpose                                                                                                             \\  \hline
-        Printbot LC                     & \S 549.00 & 3D Printer for developing reconstructed objects                                                                     \\ \hline
-        Microsoft Kinect                & \S 109.99 & The most powerful sensor for its price, contains color filtering and depth filtering in one package                 \\  \hline
-        ikg 3mm ABS Spool               & \S 46.00  & Material that the 2D Printer uses for creating objects, spool is necessary for feeding into the printer             \\ \hline
-        2x 1lb 3mm ABS                  & \S 36.00  & Extra printing material, no extra spool required                                                                    \\ \hline
-        Arduino Leonardo                & \S 24.95  & Microcontroller to plan orientation of object during reconstruction process                                         \\ \hline
-        EasyDriver Stepper Motor Driver & \S 14.95  & Allows the ability to control a stepper motion at lower voltages such as from an Arduino microcontroller            \\ \hline
-        Stepper Motor with Cable        & \S 14.95  & Motor that can be controlled in "steps" this allows a more precise method for orienting objects being reconstructed \\ \hline 
-        Total:                          & \S 795.84  & ~         \\ \hline                                                                                           
-\end{tabular}
-\end{table}
-
-
-
+  \begin{description}
+  \item[Printbot LC- \S 549.00] \hfill \\
+  3D Printer for developing reconstructed objects
+  \item[Microsoft Kinect- \S 109.99] \hfill \\
+  The most powerful sensor for its price, contains color filtering and depth filtering in one package
+  \item[ikg 3mm ABS Spool-\S 46.00] \hfill \\
+  Material that the 2D Printer uses for creating objects, spool is necessary for feeding into the printer
+  \item[2x 1lb 3mm ABS- \S 36.00] \hfill \\
+  Extra printing material, no extra spool required
+  \item[Arduino Leonardo-  \S 24.95] \hfill \\
+  Microcontroller to plan orientation of object during reconstruction process
+  \item[EasyDriver Stepper Motor Driver- \S 14.95] \hfill \\
+  Allows the ability to control a stepper motion at lower voltages such as from an Arduino microcontroller
+  \item[Stepper Motor with Cable- \S 14.95] \hfill \\
+  Motor that can be controlled in "steps" this allows a more precise method for orienting objects being reconstructed
+  \item[Total:] \hfill \\
+  \S 795.84
+  \end{description}
 
 \section{Current Trends in Robotics and Computer Vision}
 % Describe real world robotic systems of research programs that are related to your capstone project. Research the literature and provide formal citations from publications (as obtained from IEEE Xplore or ACM Digital Library on the Rutgers library site) and periodicals (e.g. NY Times, Wall Street Journal). Do not use websites as sources for this section.
