@@ -12,14 +12,4 @@ Satoshi Tanaka Soo-Hyun~Park Jong-Hyun~Kim, Kangsun~Lee.
   Simulation}.
 \newblock Springer Japan, 2012.
 
-\bibitem{cite3}
-Jing Tong, Jin Zhou, Ligang Liu, Zhigeng Pan, and Hao Yan
-\newblock {\em Scanning 3D Full Human Bodies Using Kinects}.
-\newblock IEEE Transactions on Visualization and Computer Graphics, 2012
-
-\bibitem{cite4}
-Shahram Izadi, David Kim, Otmar Hilliges, David Molyneaux, Richard Newcombe, Pushmeet Kohli, Jamie Shotton, Steve Hodges, Dustin Freeman, Andrew Davison, and Andrew Fitzgibbo
-\newblock {\em KinectFusion: Real-time 3D Reconstruction and Interaction Using a Moving Depth Camera}.
-\newblock ACM Symposium on User Interface Software and Technology, 2011
-
 \end{thebibliography}
