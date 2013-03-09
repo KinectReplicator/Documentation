@@ -54,7 +54,7 @@ Kristin \textsc{Dana}
 \section{Introduction}
 % A statement of the problem and its major components in your own words.
 The Computer Vision-Based 3D Reconstruction for Object Replication is accomplished by using a Kinect for windows. Originally the Kinect was created for entertainment, but recently it has been introduced to the field of robotics and computer vision. The Kinect is a quick, reliable and affordable tool that uses a near-infrared laser pattern projector and an IR camera, along with the sensor and software development kit, to calculate 3D measurements.  \\
-\indent The 3D printer \\
+\indent The 3D printer is another part of the robotics field that is beginning to find more and more uses. The most innovative aspect of the three dimensional printer is the ability to print an object, regardless of interconnecting internal components, and have it function as intended. This means that any connecting gears that are printed with the 3D printer will in fact turn as they are supposed to. \\
 
 \section{Methods}
 % A description of how each component in the objective is achieved.
@@ -90,7 +90,7 @@ y_{L} \end{bmatrix} $. The distance between $O_{L}$ and $O_{R}$ is T, or the dis
 $\frac{T}{Z}=\frac{T+x_{L}-x_{R}}{Z-f} or \frac{T-{x_{R}-x_{L}}}{Z-f} $ 
 Cross multiplying these equations results in: 
 $\frac{Z(T-x_{R}-x_{L})}{Z-f} = \frac{T(Z-f)}{Z} $ 
-These calculations show that depth, or Z, is inversely proportional to disparity. This means that  $P_{L}= \frac{f^{L}P}{Z_{L}}. $ and $P_{R}= \frac{f^{R}P}{Z_{R}}. $ \\
+These calculations show that depth, or Z, is inversely proportional to disparity. This means that  $P_{L}= \frac{f^{L}P}{Z_{L}}. $ and $P_{R}= \frac{f^{R}P}{Z_{R}}. $ \\ \\
 \indent Once there is a corresponding point pair for P from the two images, an algorithm would undo the scale and shift of the pixel points in order to obtain the 2 dimensional camera coordinates. The midpoint algorithm is then used to find the real three dimensional world coordinate that corresponds to that point pair.\\ 
 %Midpoint Algorithm Image
 \begin{tikzpicture}
@@ -105,9 +105,16 @@ These calculations show that depth, or Z, is inversely proportional to disparity
 \tkzLabelPoints[above left](P)
 \tkzLabelPoints[above right](p_{R})
 \tkzLabelPoints[above left](p_{L})
-\end{tikzpicture}  
+\end{tikzpicture}  \\
 \indent Above are the rays $\vec{O_{R}p_{R}}$ and $\vec{O_{L}p_{L}}$ are drawn. The line connecting the two vectors, that is also perpendicular to both, is obtained by taking the cross product of these two vectors. The vector from $p_{L}$ is equal to $a\vec{p_{L}}$, since point $p_{R}$ is distance T away from $p_{L}$, the vector from $p_{R}$ is equal to $b^{L}R_{R}\vec{p_{R}}+T$. The segment connecting these two vectors can be represented as $c\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$, where $a,b$ and $c$ are unknown constants that can be solved using the three equations explained above. \\
 The point P lies on the center of this line and be found by $^{L}P=a\vec{p_{L}}+\frac{c}{2}\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$ In order to get the world point M, this point would just be divided by the Intrinsic and extrinsic matrices.\\
+
+\indent  The Kinect accomplishes this triangulation by using the known information about the sensor, the data obtained from the infrared projection and the image received from the camera. The sensor will project invisible light onto an object, the light bounces back and the infrared sensor reads back the data. These clusters of light that are read back can be matched to the hard-coded images the Kinect has of the normal projected pattern and allows for a search for correlations, or the matching points. While looking through the camera's focal point, the point of interest will fall on a specific pixel, depending on how close or far away it is, this means that we know along which trajectory this point is from the camera. The relative line of trajectory from the projector and from the camera, along with the known information about the distance between the cameras on the Kinect sensor, are used in the above described triangulation process to find the three dimensional coordinates of the point. \\
+
+\indent In order to make this data more manageable, a bilateral filter is used to remove the erroneous measurements. This filter will just take every point, and recalculate the value of that point based on the waited average of the surrounding pixels. This process takes away some of the sharpness of the depth map, but it removes the noise that will skew the final results of the three dimensional reconstruction. Next, in order to represent the depth map in the true three dimensional points, a vertex must be created at each point where x, and y are the pixel values and the depth is the z coordinate. These points are then multiplied by a calibrated matrix to convert them into a vector map, or point cloud. The normal of each vertice is calculated by the cross product of the neighboring pixels. This process is combined with the process of computing a pyramid of the data, multiple copied of the depth map are made with smaller resolutions, at leach layer the vertices and their normals are calculated and stored. \\
+
+\indent The next step is to take a previously calculated vertex and normal map and run an Iterative Closest Point Algorithm on the four maps. This step creates a rotation and translation that minimizes distant errors between the point clouds. This algorithm is useful because it will find the best way to position the point cloud before the reconstruction so that every part of the object is represented correctly. Once the best fit is found, the existing depth data can be combined with the existing model to get a more refined result. The filtering got rid of the noise, and adding the raw depth data back to this will add the important details back into the final model. A Truncated Surface Distance Function is used to fit the depth data and the model back together. A weighted average of the existing model and the latest depth measurements. The last step to this three dimensional reconstruction is the generate the surface using a ray casting algorithm, to express the reconstructed object to the user. The model can be exported as an STL file to the Gcode converter, but some work still needs to be done in order to represent to the user what he ore she is trying to print. The ray casting algorithm will tell a virtual camera looking at the virtual model what to display on the GUI. A ray is cast from every pixel in the image through the focal point of the digital camera, and the first surface that the ray intersects with is excited, displaying it to the user. \\
+
 { \bf Gcode Conversion}\\ 
 The RepRap firmware uses G-code to communicate to the three dimensional printer, specifically to define the print head movements. This code has commands that tell the print head to move to a certain point with rapid or controlled movement, turn on a cooling fan, or selecting a different tool. Since this three dimensional printer does not have as many features, the G-code generator does not have to add much complicated code, but rather just instructions to the printer head. Since the printer continuously dispenses plastic, it is necessary to find a path for it to take that will build up the reconstructed object layer by layer without placing too much plastic in any specific area. This requires cutting up the reconstructed object into layers and then finding the best path to traverse that layer without overlapping any part of that path. The G-code converter takes in the STL file, cuts it up into horizontal layers and then calculates the about of material that is needed to fill each slice. 
 
@@ -116,8 +123,23 @@ The RepRap firmware uses G-code to communicate to the three dimensional printer,
 \section{Experimental Results}
 %Measurements, repeated trials (for validation), error/performance analysis (as a function of system parameters). Include plots, images or tables to describe measurement values.
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=70mm]{kinectwaterbottle.png}
+\caption{The Kinect depth field without bilateral filter}
+\label{overflow}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=70mm]{WP_20130223_002.jpg}
+\caption{Parts of the 3D Printer}
+\label{overflow}
+\end{figure}
+
 \section{Discussion}
 %Discuss difficulties, sources of error, future work and extensions.
+
 
 \section{Cost Analysis}
 %Discuss the cost entailed with a product design based on your work. Use examples from currently available equipment in your cost estimates.
