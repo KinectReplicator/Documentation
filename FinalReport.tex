@@ -90,7 +90,11 @@ y_{L} \end{bmatrix} $. The distance between $O_{L}$ and $O_{R}$ is T, or the dis
 $\frac{T}{Z}=\frac{T+x_{L}-x_{R}}{Z-f} or \frac{T-{x_{R}-x_{L}}}{Z-f} $ 
 Cross multiplying these equations results in: 
 $\frac{Z(T-x_{R}-x_{L})}{Z-f} = \frac{T(Z-f)}{Z} $ 
+<<<<<<< HEAD
 These calculations show that depth, or Z, is inversely proportional to disparity. This means that  $P_{L}= \frac{f^{L}P}{Z_{L}}. $ and $P_{R}= \frac{f^{R}P}{Z_{R}}. $ \\ \\
+=======
+These calculations show that depth, or Z, is inversely proportional to disparity. This means that  $P_{L}= \frac{f^{L}P}{Z_{L}}. $ and $P_{R}= \frac{f^{R}P}{Z_{R}}. $ \\ 
+>>>>>>> Adding FIgures
 \indent Once there is a corresponding point pair for P from the two images, an algorithm would undo the scale and shift of the pixel points in order to obtain the 2 dimensional camera coordinates. The midpoint algorithm is then used to find the real three-dimensional world coordinate that corresponds to that point pair.\\ 
 %Midpoint Algorithm Image
 \begin{tikzpicture}
@@ -105,6 +109,7 @@ These calculations show that depth, or Z, is inversely proportional to disparity
 \tkzLabelPoints[above left](P)
 \tkzLabelPoints[above right](p_{R})
 \tkzLabelPoints[above left](p_{L})
+<<<<<<< HEAD
 \end{tikzpicture}  \\
 \indent Above are the rays $\vec{O_{R}p_{R}}$ and $\vec{O_{L}p_{L}}$ are drawn. The line connecting the two vectors, which is also perpendicular to both, is obtained by taking the cross product of these two vectors. The vector from $p_{L}$ is equal to $a\vec{p_{L}}$, since point $p_{R}$ is distance T away from $p_{L}$, the vector from $p_{R}$ is equal to $b^{L}R_{R}\vec{p_{R}}+T$. The segment connecting these two vectors can be represented as $c\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$, where $a,b$ and $c$ are unknown constants that can be solved using the three equations explained above. \\
 The point P lies on the center of this line and be found by $^{L}P=a\vec{p_{L}}+\frac{c}{2}\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$ In order to get the world point M, this point would just be divided by the Intrinsic and extrinsic matrices.\\
@@ -121,6 +126,28 @@ The point P lies on the center of this line and be found by $^{L}P=a\vec{p_{L}}+
 \indent The next step is to take a previously calculated vertex and normal map and run an Iterative Closest Point Algorithm on the four maps. This step creates a rotation and translation that minimizes distant errors between the point clouds. This algorithm is useful because it will find the best way to position the point cloud before the reconstruction so that every part of the object is represented correctly. Once the best fit is found, the existing depth data can be combined with the existing model to get a more refined result. The filtering got rid of the noise, and adding the raw depth data back to this will add the important details back into the final model. A Truncated Surface Distance Function is used to fit the depth data and the model back together. Finally, a weighted average of the existing model and the latest depth measurements is taken and used to generate the surface using a ray-casting algorithm, to express the reconstructed object to the user. The model can be exported as an STL file to the Gcode converter, but some work still needs to be done in order to represent to the user what he ore she is trying to print. The ray-casting algorithm will tell a virtual camera looking at the virtual model what to display on the GUI. A ray is cast from every pixel in the image through the focal point of the digital camera, and the first surface that the ray intersects with is excited, displaying it to the user.  \cite{cite8} \\
 
 %Image that shows raw depth data, filters and reconstructed objet
+=======
+\end{tikzpicture}  
+\indent Above are the rays $\vec{O_{R}p_{R}}$ and $\vec{O_{L}p_{L}}$ are drawn. The line connecting the two vectors, which is also perpendicular to both, is obtained by taking the cross product of these two vectors. The vector from $p_{L}$ is equal to $a\vec{p_{L}}$, since point $p_{R}$ is distance T away from $p_{L}$, the vector from $p_{R}$ is equal to $b^{L}R_{R}\vec{p_{R}}+T$. The segment connecting these two vectors can be represented as $c\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$, where $a,b$ and $c$ are unknown constants that can be solved using the three equations explained above. \\
+The point P lies on the center of this line and be found by $^{L}P=a\vec{p_{L}}+\frac{c}{2}\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$ In order to get the world point M, this point would just be divided by the Intrinsic and extrinsic matrices.
+
+% How Kinect does triangulation 
+\begin{figure}[H]
+\centering
+\includegraphics[width=70mm]{image (1).jpeg}
+\caption{The Xbox Kinect, the center camera is the RGB camera and the two outer cameras are the 3D sensors. The base has a motorized tilt and a multi-array mic goes along the bottom of the wand.}
+\label{kinectlable}
+\end{figure}
+\indent  The Kinect accomplishes this triangulation by using the known information about the sensor, the data obtained from the infrared projection and the image received from the camera. The sensor will project invisible light onto an object, the light bounces back and the infrared sensor reads back the data. These clusters of light that are read back can be matched to the hard-coded images the Kinect has of the normal projected pattern and allows for a search for correlations, or the matching points. While looking through the camera's focal point, the point of interest will fall on a specific pixel, depending on how close or far away it is, this means that we know along which trajectory this point is from the camera. The relative line of trajectory from the projector and from the camera, along with the known information about the distance between the cameras on the Kinect sensor, are used in the above described triangulation process to find the three-dimensional coordinates of the point. Figure ~\ref{kinectlable} shows how the three cameras are arranged on the Kinect.
+
+% Bilateral Filter and Image Pyramiding
+\indent In order to make this data more manageable, a bilateral filter is used to remove the erroneous measurements. This filter will just take every point, and recalculate the value of that point based on the waited average of the surrounding pixels in a specified neighborhood. The process takes away some of the sharpness of the depth map, but it removes the noise that will skew the results of the three dimensional reconstruction. The filter takes every pixel in the image and replaces its value with $BF[I]_{P} = \frac{1}{W_{P}}\sum_{q \epsilon S} G_{\sigma_{s}} (||p-q||)G_{\sigma_{r}} (|I_{P} - I_{q}|) I_{q}. $ Where  p is the center position, q is the pixel itself, ${\sigma}$ is the neighborhood size, G is the gaussian and $W_{P}$ is the normalization factor. Next, in order to represent the depth map in the true three dimensional points, a vertex must be created at each point where x, and y are the pixel values and the depth is the z coordinate. These points are then multiplied by a calibrated matrix to convert them into a vector map, or point cloud. The normal of each vertex is calculated by the cross product of the neighboring pixels. This process is combined with the process of computing a pyramid of the data, multiple copied of the depth map are made with smaller resolutions, at leach layer the vertices and their normals are calculated and stored. 
+
+% Vector Field and Truncated Surface Distance Function
+\indent The next step is to take a previously calculated vertex and normal map and run an Iterative Closest Point Algorithm on the four maps. This algorithm associates points by the nearest neighbor criteria, estimates a transformation using a mean square cost function, transform the point using the estimated parameter and then re-associates the points iteratively. This step creates a final rotation and translation that minimizes distant errors between the point clouds. This algorithm is useful because it will find the best way to position the point cloud before the reconstruction so that every part of the object is represented correctly. Once the best fit is found, the existing depth data can be combined with the existing model to get a more refined result. The filtering got rid of the noise, and adding the raw depth data back to this will add the important details back into the final model. A Truncated Surface Distance Function is used to fit the depth data and the model back together. Finally, a weighted average of the existing model and the latest depth measurements is taken and used to generate the surface using a ray-casting algorithm, to express the reconstructed object to the user. The model can be exported as an STL file to the Gcode converter, but some work still needs to be done in order to represent to the user what he ore she is trying to print. The ray-casting algorithm will tell a virtual camera looking at the virtual model what to display on the GUI. A ray is cast from every pixel in the image through the focal point of the digital camera, and the first surface that the ray intersects with is excited, displaying it to the user.  \cite{cite8}
+
+%%%%%%%%%%%%%%%%%Image that shows raw depth data, filters and reconstructed object
+>>>>>>> Adding FIgures
 
 % Gcode Conversion
 \indent { \bf Gcode Conversion}\\ 
@@ -131,6 +158,7 @@ The RepRap firmware uses G-code to communicate to the 3D printer, specifically t
 \section{Experimental Results}
 %Measurements, repeated trials (for validation), error/performance analysis (as a function of system parameters). Include plots, images or tables to describe measurement values.
 
+<<<<<<< HEAD
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=70mm]{figures/kinectwaterbottle.jpg}
@@ -170,6 +198,51 @@ The RepRap firmware uses G-code to communicate to the 3D printer, specifically t
   Motor that can be controlled in "steps" this allows a more precise method for orienting objects being reconstructed
   \item[Total:] \hfill \\
   \$ 795.84
+=======
+\begin{figure}[H]
+\centering
+\includegraphics[width=70mm]{kinectwaterbottle.png}
+\caption{The Kinect raw depth field, with the RGB image mapped to it, without bilateral filter}
+\label{waterbot}
+\end{figure}
+
+\section{Discussion}
+%Discuss difficulties, sources of error, future work and extensions.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=70mm]{WP_20130223_002.jpg}
+\caption{Parts of the 3D Printer}
+\label{parts}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=70mm]{WP_20130309_033.jpg}
+\caption{Construction of the 3D Printer Frame}
+\label{basebuilt}
+\end{figure}
+
+\section{Cost Analysis}
+%Discuss the cost entailed with a product design based on your work. Use examples from currently available equipment in your cost estimates.
+  \begin{description}
+  \item[Printbot LC- \S 549.00] \hfill \\
+  3D Printer for developing reconstructed objects
+  \item[Microsoft Kinect- \S 109.99] \hfill \\
+  The most powerful sensor for its price, contains color filtering and depth filtering in one package
+  \item[1kg 3mm ABS Spool-\S 46.00] \hfill \\
+  Material that the 2D Printer uses for creating objects, spool is necessary for feeding into the printer
+  \item[2x 1lb 3mm ABS- \S 36.00] \hfill \\
+  Extra printing material, no extra spool required
+  \item[Arduino Leonardo-  \S 24.95] \hfill \\
+  Microcontroller to plan orientation of object during reconstruction process
+  \item[EasyDriver Stepper Motor Driver- \S 14.95] \hfill \\
+  Allows the ability to control a stepper motion at lower voltages such as from an Arduino microcontroller
+  \item[Stepper Motor with Cable- \S 14.95] \hfill \\
+  Motor that can be controlled in "steps" this allows a more precise method for orienting objects being reconstructed
+  \item[Total:] \hfill \\
+  \S 795.84
+>>>>>>> Adding FIgures
   \end{description}
 
 \section{Current Trends in Robotics and Computer Vision}
