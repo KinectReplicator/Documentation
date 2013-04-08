@@ -1,10 +1,23 @@
 \begin{thebibliography}{1}
 
+\bibitem{cite8}
+How kinect and kinect fusion (kinfu) works, December 2011.
+
 \bibitem{cite1}
 Helmut Grabner Xiaofeng Ren-Kurt~Konolige Andrea~Fossati, Juergen~Gall, editor.
 \newblock {\em Consumer Depth Cameras for Computer Vision Research Topics and
   Applications}.
 \newblock Springer-Verlag London, 2013.
+
+\bibitem{cite6}
+Richard~A. D'Aveni.
+\newblock 3-d printing will change the world.
+\newblock {\em Harvard Business Review}, 2013.
+
+\bibitem{cite7}
+Lesliei Gordon.
+\newblock The changing face of 3d printing.
+\newblock {\em Machine Design}, 2013.
 
 \bibitem{cite2}
 Satoshi Tanaka Soo-Hyun~Park Jong-Hyun~Kim, Kangsun~Lee.
@@ -12,34 +25,9 @@ Satoshi Tanaka Soo-Hyun~Park Jong-Hyun~Kim, Kangsun~Lee.
   Simulation}.
 \newblock Springer Japan, 2012.
 
-\bibitem{cite3}
-Jing Tong, Jin Zhou, Ligang Liu, Zhigeng Pan, and Hao Yan
-\newblock {\em Scanning 3D Full Human Bodies Using Kinects}.
-\newblock IEEE Transactions on Visualization and Computer Graphics, 2012
-
-\bibitem{cite4}
-Shahram Izadi, David Kim, Otmar Hilliges, David Molyneaux, Richard Newcombe, Pushmeet Kohli, Jamie Shotton, Steve Hodges, Dustin Freeman, Andrew Davison, and Andrew Fitzgibbo
-\newblock {\em KinectFusion: Real-time 3D Reconstruction and Interaction Using a Moving Depth Camera}.
-\newblock ACM Symposium on User Interface Software and Technology, 2011
-
 \bibitem{cite5}
-Ashlee Vance 
-\newblock {\em 3-D Printing Spurs a Manufacturing Revolution}.
-\newblock New York TImes, 2010
-
-\bibitem{cite6}
-Richard A. D'Aveni
-\newblock {\em 3-D Printing Will Change the World}.
-\newblock Harvard Business Review, 2013
-
-\bibitem{cite7}
-Lesliei Gordon
-\newblock {\em The changing face of 3D printing}.
-\newblock Machine Design, 2013
-
-
-\bibitem{cite8}
-"How Kinect and Kinect Fusion (Kinfu) Works" \newblock  Internet: http://razorvision.tumblr.com/post/15039827747/how-kinect-and-kinect-fusion-kinfu-work, December 2011 [2/10/2013]
-
+Ashlee Vance.
+\newblock 3-d printing spurs a manufacturing revolution.
+\newblock {\em New York TImes}, 2010.
 
 \end{thebibliography}
