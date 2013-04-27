@@ -13,44 +13,44 @@
 %11. Poster is required for department demo day.
 %12. Separate from the final report, each person must individually submit a paragraph describing his or her contribution to the project. The tasks of the project should be well distributed (for example, do not have one team member do the all the writing and the other do all the programming).
 
+\documentclass[12pt]{article}
 
-\documentclass[12pt,twocolumn]{article}
 \usepackage[upright]{fourier} 
 \usepackage{hyperref}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{tkz-euclide} 
 \usepackage{amsmath}
+\usepackage{pdfpages} % Import pdf pages
 \usetkzobj{all} 
 \usepackage{float}
 \restylefloat{table}
+
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{2} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage{hyperref} % For hyperlinks in the PDF
+
+\usepackage{paralist} % Used for the compactitem environment which makes bullet points with less space between them
+
+\usepackage{graphicx}
+
+\usepackage{fancyhdr} % Headers and footers
+\usepackage{indentfirst }
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+%\fancyhead[C]{Running title $\bullet$ \today \space$\bullet$} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
 \begin{document}
-\begin{titlepage}
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-\center
-\textsc{\LARGE Rutgers University}\\[1.5cm] 
-\textsc{\Large Capstone Design}\\[0.5cm] 
-\textsc{\large Electrical and Computer Engineering}\\[0.5cm]
-\HRule \\[0.4cm]
-{ \huge \bfseries Computer Vision-Based 3D Reconstruction for Object Replication}\\[0.4cm] 
-\HRule \\[1.5cm]
-\begin{minipage}{0.4\textwidth}
-\begin{flushleft} \large
-\emph{Authors:}\\
-Ryan \textsc{Cullinane}\\
-Cady \textsc{Motyka}\\
-Elie \textsc{Rosen}
-\end{flushleft}
-\end{minipage}
-~
-\begin{minipage}{0.4\textwidth}
-\begin{flushright} \large
-\emph{Supervisor:} \\
-Kristin \textsc{Dana} 
-\end{flushright}
-\end{minipage}\\[4cm]
-{\large \today}\\[3cm]
-\vfill 
-\end{titlepage}
+
+\input{cover_page}
+
+\thispagestyle{fancy} % All pages have headers and footers
+
 
 \section{Introduction}
 % A statement of the problem and its major components in your own words.
@@ -239,8 +239,9 @@ One of the reasons that the Kinect has become so popular for computer vision pro
 \section{}\bibliographystyle{plain}
 \bibliography{FinalReport}
 
-\section{Appendix} 
-%Source Code: All source code (within reason) with some descriptive comments. The code does not count in the final page count
-All of the source code for the Computer Vision-Based 3D Reconstruction for Object Replication Capstone Design Project can be found at: \url{https://github.com/KinectReplicator}
+  
+\includepdf[pages={1 - 10}]{pdf/MainWindowcs.pdf}  % KinectScan main code
+
+\includepdf[pages={1 - 4}]{pdf/MainWindowxaml.pdf} % KinectScan graphical user interface
 
 \end{document}
