@@ -29,9 +29,8 @@
 \usepackage{wrapfig}
 \usepackage[upright]{fourier} 
 \usepackage[usenames,dvipsnames]{xcolor}
-\usepackage{tkz-euclide} 
-\usepackage{amsmath}
-\usepackage{pdfpages} % Import pdf pages
+\usepackage{tkz-euclide}
+\usepackage{listings}
 
 \usetkzobj{all} 
 \usepackage{float}
@@ -63,7 +62,7 @@ The Microsoft Kinect for Windows has proven to be a valuable tool in the field o
 % A statement of the problem and its major components in your own words.
 The Computer Vision-Based 3D Reconstruction for Object Replication is accomplished by using a Kinect for Windows. Originally, the Kinect was created for entertainment, but recently it has been introduced to the field of robotics and computer vision. The Kinect is a quick, reliable, and affordable tool that uses a near-infrared laser pattern projector and an IR camera, along with the sensor and software development kit, to calculate 3D measurements.
 
-The 3D printer is another part of the robotics field that is beginning to find an increasing number of uses. The most innovative aspect of the 3D printer is the ability to print an object, regardless of interconnecting internal components, and have it function as intended. This means that any connecting gears that are printed with the 3D printer will in fact turn as they are supposed to. \\
+The 3D printer is another part of the robotics field that is beginning to find an increasing number of uses. The most innovative aspect of the 3D printer is the ability to print an object, regardless of interconnecting internal components, and have it function as intended. This means that any connecting gears that are printed with the 3D printer will in fact turn as they are supposed to.
 
 \section{Methods}
 % A description of how each component in the objective is achieved.
@@ -245,16 +244,17 @@ In recent news, biomedical scientists have taken the 3D printing technology a st
  Even though lower cost of production is a goal for many industries, the 3D printing technology can be considered a disruptive technology, meaning that over the course of a short period of time it could change an existing market and value network while replacing existing technology. An article in the Harvard Business Review explains that good would be produced at or close to their point of purchase or consumption. Even if this ins't the case with every industry, the cost will be offset by the elimination of shipping the completed object to the consumer, something like car parts could be printed in a metropolitan area rather than made and shipped from a factory. This article also mentions how the 3D printer would allow for cheap and efficient customization of these products. Since changing the shape, color or material of what you want to print is only a mater of changing code, the first model could be relatively different than the second model for virtually no extra cost. \cite{cite6} The 3D printer could potentially affect the global market. Many products are manufactured overseas since it is much cheaper for the pieces to be created an assembled by underpaid workers, when 3D printing is perfected the parts could be made and assembled by a machine in the US for less than it cost to have the product manufactured and shipped from overseas. 
 
 %http://p8080-140.234.1.9.proxy.libraries.rutgers.edu/EPSessionID=e9758f18885b96365d7e86472d628a/EPHost=web.ebscohost.com/EPPath/ehost/detail?sid=2b6863d6-ae3a-4000-9104-efa71fbc900c%40sessionmgr14&vid=1&hid=24&bdata=JnNpdGU9ZWhvc3QtbGl2ZQ%3d%3d#db=ofm&AN=85517553
-An article in Machine Design talks about what changes are being made to the 3D printers in order to make them more durable, user friendly and affordable. One brand, LeapFrog, has made the entire device out of aluminum and  replaced the stepper-motor drivers with professional drivers that last longer. This company has also added a duel option extruder so that the printer could construct something like a bridge by adding the plastic from one extruder and a water soluble support system with the other extrude that can be washed away once the printing is finished. This printer also uses PLA plastic, which is more brittle and has a lower melting temperature, can print smoother edges than the usual ABS plastic. Another brand, FormLabs, uses a liquid photopolymer instead of a spool of plastic, this resin cuts the price of printing materials in half and allows for a layer thickness of only 25 microns. The RepRap 3D printer has been designated a self-replicating printer because it can be used to print parts for constructing another 3D printer. It is believed that between 20,000 and 30,000 of these machines are now in existence.\cite{cite7} The company Staples has started "Staples Easy 3D" in Belgium and the Netherlands, where anyone can upload their file to the center and later pick up the 3D model at their local staples or have it shipped to their house. Services like this are a sign that 3D printing will soon be as mainstream as 2D printing.
+An article in Machine Design talks about what changes are being made to the 3D printers in order to make them more durable, user friendly and affordable. One brand, LeapFrog, has made the entire device out of aluminum and  replaced the stepper-motor drivers with professional drivers that last longer. This company has also added a duel option extruder so that the printer could construct something like a bridge by adding the plastic from one extruder and a water soluble support system with the other extrude that can be washed away once the printing is finished. This printer also uses PLA plastic, which is more brittle and has a lower melting temperature, can print smoother edges than the usual ABS plastic. Another brand, FormLabs, uses a liquid photopolymer instead of a spool of plastic, this resin cuts the price of printing materials in half and allows for a layer thickness of only 25 microns. The RepRap 3D printer has been designated a self-replicating printer because it can be used to print parts for constructing another 3D printer. It is believed that between 20,000 and 30,000 of these machines are now in existence.\cite{cite7} The company Staples has started "Staples Easy 3D" in Belgium and the Netherlands, where anyone can upload their file to the center and later pick up the 3Dc model at their local staples or have it shipped to their house. Services like this are a sign that 3D printing will soon be as mainstream as 2D printing.
 
 \section{Appendix}
 
 \appendix
 \subsection{KinectScan Application Code}
-\includepdf[pages={1 - 10}]{pdf/MainWindowcs.pdf}  % KinectScan main code
+\lstset{numbers=left, stepnumber=2, frame=single, breaklines=true}
+\lstinputlisting[language={[Sharp]C}]{code/MainWindow.xaml.cs} % KinectScan main code
 
 \subsection{KinectScan Graphical User Interface Code}
-\includepdf[pages={1 - 4}]{pdf/MainWindowxaml.pdf} % KinectScan graphical user interface
+\lstinputlisting[language=XML]{code/MainWindow.xaml} % KinectScan main code
 
 
 {\footnotesize\singlespacing
