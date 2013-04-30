@@ -196,21 +196,21 @@ The RepRap firmware uses G-code to communicate to the three-dimensional printer,
     \centering
     \begin{subfigure}[H]{0.4\textwidth}
         \includegraphics[width=\textwidth]{figures/filter}
-        \caption{Actual Robot}
+        \caption{Gaussian filtered scan}
     \end{subfigure}
     \begin{subfigure}[H]{0.4\textwidth}
         \includegraphics[width=\textwidth]{figures/unfiltered}
-        \caption{SolidWorks CAD Render}
+        \caption{Non-filtered scan}
     \end{subfigure}
     \caption{
-        Comparison between Gaussian filter (left) and non-filtered (right) applied to the depth data
+        As can be seen on the left figure it is clear that filtering the depth data provides a nicer and cleaner result.
     }
     \label{fig:cad}
 \end{figure}
 
 \section{Discussion}
 %Discuss difficulties, sources of error, future work and extensions.
-Part of the issue of working with this three-dimensional printer was that many of the parts used in the construction of the machine were actually printed by another three-dimensional printer. This meant that before we could start the construction of the printer, we had to wait for all of the correct parts to be printed. We discovered two important parts were missing and had to go to the Rutgers's Maker Space to get these parts printed. We also found that many of the holes in the plastic parts were made to be the exact diameter of the rods that were supposed to be fitting in; it took a lot of force to get some of the components to fit together properly. At one point we tried to use hot water to make the printed plastic more malleable, but we fear that this made some of the pieces warp.
+Part of the issue of working with this three-dimensional printer was that many of the parts used in the construction of the machine were actually printed by another three-dimensional printer. This meant that before we could start the construction of the printer, we had to wait for all of the correct parts to be printed. We discovered two important parts were missing and had to go to the Rutgers Maker Space to get these parts printed. We also found that many of the holes in the plastic parts were made to be the exact diameter of the rods that were supposed to be fitting in; it took a lot of force to get some of the components to fit together properly. At one point we tried to use hot water to make the printed plastic more malleable, but we fear that this made some of the pieces warp.
 
 Another big issue with the construction of the three-dimensional printer was the lack of good documentation on the assembly process. The triangular base structure had to be taken apart and reassembled multiple time in order to fix errors. One example was the motor bracket for the motor that controls the movement along the y-axis: there were not good diagrams to show which side of the machine this part should be placed and what direction it should be oriented. Figure~\ref{parts} shows a number of the unlabeled parts that we received from the Institute of Electrical and Electronics Engineers (IEEE). Since documentation is hard to find and none of the parts were labeled, we also had trouble finding the correct STL files to send to get printed. We knew that we were missing the brackets that connect the two top motors to the threaded rod that controls the movement along the z-axis, but we did not know exactly what file needed to be printed.
 
