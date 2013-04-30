@@ -192,6 +192,22 @@ The RepRap firmware uses G-code to communicate to the 3D printer, specifically t
 	\label{balls2}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \begin{subfigure}[H]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/filter}
+        \caption{Actual Robot}
+    \end{subfigure}
+    \begin{subfigure}[H]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/unfiltered}
+        \caption{SolidWorks CAD Render}
+    \end{subfigure}
+    \caption{
+        Comparison between Gaussian filter (left) and non-filtered (right) applied to the depth data
+    }
+    \label{fig:cad}
+\end{figure}
+
 \section{Discussion}
 %Discuss difficulties, sources of error, future work and extensions.
 Part of the issue of working with this 3D printer was that many of the parts used in the construction of the machine were actually printed by another 3D printer. This meant that before we could start the construction of the printer, we had to wait on all of the correct parts to be printed. Even once we thought that we had all of the required pieces, we found two important parts that we were missing that we have to go to the Rutgers Maker Space to get printed. We also found that many of the plastic parts were made to be the exact size of the rods that needed to be placed into them, this meant that it took a lot of force to get some of the components to fit together properly. At one point we tried to use hot water to make the printed plastic more malleable but we fear that this made some of the pieces warp.
@@ -236,7 +252,7 @@ The biggest issue that we have had with the software component of this project w
 	\caption{
 	Overview of hardware and cost for project.
 	}	
-\label{tab:team}
+\label{tab:costs}
 \end{table}
 
 \section{Current Trends in Robotics and Computer Vision}
