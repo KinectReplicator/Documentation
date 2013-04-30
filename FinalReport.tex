@@ -205,6 +205,10 @@ In order to filter out depth that is further than the intended value, the softwa
 \subsection{G-code Conversion}
 The RepRap firmware uses G-code to communicate to the three-dimensional printer, specifically to define the print head movements. G-code has commands that tell the print head to move to a certain point with rapid or controlled movement, turn on a cooling fan, or select a different extruding tool. Since the RepRap three-dimensional printer does not have as many features, the G-code generator does not have to add much complicated code, but rather instructions to the printer head. Since the printer continuously dispenses plastic, it is necessary to find a path for it to take that will build up the reconstructed object layer by layer without placing too much plastic in any specific area. The conversion requires cutting up the reconstructed object into layers and then finding the best path to traverse that layer without overlapping any part of that path. The G-code converter takes in the STL file, cuts it up into horizontal layers, and then calculates the about of material that is needed to fill each slice. 
 
+%3-D printer
+\subsection{Building a 3-D Printer}
+The RepRap Prusa Mendel Iteration 2 is nothing more than a parts list which lists all of the necessary components and design files for building the printer from scratch. A non-exhaustive list of components include; threaded metal rods, linear bearings, nuts, screws, washers, and electrical heating elements. These parts were purchased from a2aprinter located in Toronto, Canada and arrived by early February. Once the printer arrived, work began to meticulously build the kit following the poorly written specified instructions. In all, there are over 100 pieces to make the printer and each fit in custom 3-D printed parts that were extruded using a secondary MakerBot Replicator 2 3-D printer owned by the IEEE Princeton Central Jersey Section. The final printer includes a heated extruder nozzle that heats up to 400 degrees Fahrenheit to melt the ABS plastic and a heating bed which heats up to about 200 degrees Fahrenheit to keep the printing object soft and malleable as to allow the completed object to cool evenly since the plastic shrinks minimally when cooling and would cause defiguration in the final printed object.
+
 \section{Experimental Results}
 %Measurements, repeated trials (for validation), error/performance analysis (as a function of system parameters). Include plots, images or tables to describe measurement values.
 
@@ -278,6 +282,9 @@ The biggest issue that we have had with the software component of the project wa
 
 \section{Cost Analysis}
 %Discuss the cost entailed with a product design based on your work. Use examples from currently available equipment in your cost estimates.
+The project in itself is not by any means cost effective in that there is a large cost alone in acquiring a 3-D printer. The printer used in this project cost a little over \$550.00 which is not representative of the true expense of large professional 3-D printers which can cost into the thousands of dollars. Work is currently being performed in industry to lower this cost to make it affordable so that even regular consumers may purchase 3-D printers for their homes. \cite{cite9} The printer however, was payed for through a grant with the IEEE Princeton Central Jersey Section so there was no direct cost to the project.
+
+Other components to the project included a Microsoft Kinect for Xbox which performed 3-D scanning the cost for this powerful sensor is about \$100.00 which for the hardware included is a great price and opens the use of 3-D sensing to just about any project one can think of. The rest of the miscellaneous parts purchased for this project include acrylic casing for making the project more professional. Additional Pololu stepper motor drivers where purchased due to the malfunctioning of the drivers which originally came with the printer kit. A full list of parts used and their costs can be found in Table ~\ref{tab:costs}.
 
 \begin{table}[h]
 	\centering
@@ -285,12 +292,13 @@ The biggest issue that we have had with the software component of the project wa
 		\hline
 		\textbf{Item} & \textbf{Description} & \textbf{Cost} \\
 		\hline
- 		RepRap Prusa Mendel Iteration 2 & Open Hardware based 3-D Printer& \$ 725.00\\
+ 		RepRap Prusa Mendel Iteration 2 & Open Hardware based 3-D Printer& \$ 556.03\\
 		Microsoft Kinect for Xbox & Video camera and depth sensor & \$ 98.79 \\
 		Acrylic casing, small tools, glue, misc.. & Parts for creating the case & \$ 59.65 \\
+		Pololu A4988 Stepper Motor Driver ($\times 3$)   & Converts digital signals to motor movement & \$ 33.09 \\
 		Kinect Power Supply Cable & External power source for Kinect & \$ 6.70 \\
 		\hline
-		& \textbf{Total Cost:} & \textbf{\$  890.14} \\
+		& \textbf{Total Cost:} & \textbf{\$  754.26} \\
 		\hline
 	\end{tabular}
 	\caption{
