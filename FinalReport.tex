@@ -148,28 +148,34 @@ Once there is a corresponding point pair for P from the two images, an algorithm
 \end{figure}
 
 Above are the rays $\vec{O_{R}p_{R}}$ and $\vec{O_{L}p_{L}}$. The line connecting the two vectors, perpendicular to both, is obtained by taking the cross product of these two vectors. The vector,
+
 \begin{figure}[H]
 	\centering
 	 $\vec{p_{L}p_{b}} = a\vec{p_{L}}$, 
 \end{figure}	 
-since point $p_{R}$ is distance T away from $p_{L}$, 
+
+\noindent since point $p_{R}$ is distance T away from $p_{L}$, 
+
 \begin{figure}[H]
 	\centering
 	$\vec{p_{R}p_{a}} = b^{L}R_{R}\vec{p_{R}}+T$. 
 \end{figure}	
-The segment connecting these two vectors can be represented as,
+
+\noindent The segment connecting these two vectors can be represented as,
+
 \begin{figure}[H]
 	\centering
 	$\vec{p_{a}p_{b}} = c\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$,
 \end{figure}
-where $a,b,$ and $c$ are unknown constants that can be solved using the three aforementioned equations.
 
-The point P lies on the center of this line and be found by,
+\noindent where $a,b,$ and $c$ are unknown constants that can be solved using the three aforementioned equations. The point P lies on the center of this line and be found by,
+
 \begin{figure}[H]
 	\centering
  	$^{L}P=a\vec{p_{L}}+\frac{c}{2}\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$.
  \end{figure}
- In order to get the world point M, this point would be divided by the intrinsic and extrinsic matrices.
+
+\noindent In order to get the world point M, this point would be divided by the intrinsic and extrinsic matrices.
 
 % How Kinect does triangulation 
 \begin{figure}[H]
@@ -192,7 +198,7 @@ In order to make the depth data more manageable, a bilateral filter is used to r
 		1 & 2 & 1 
 	\end{array}  \right)$,
 \end{figure}
-times the neighborhood of the three by three square of pixels around the pixel that is being changed. The resulting pixel value represents the average of the nine pixels, where the closer pixels weights in the average are heavier than the further pixel values' weights.  \cite{filter}
+\noindent times the neighborhood of the three by three square of pixels around the pixel that is being changed. The resulting pixel value represents the average of the nine pixels, where the closer pixels weights in the average are heavier than the further pixel values' weights.  \cite{filter}
 
 \subsection{Mesh Construction}
 Once the depth data has been filtered, it can be used to create a three-dimensional mesh of the object. At each pixel location two vectors are made, each connecting that three-dimensional point to the next point to the right and the next point below. Figure ~\ref{square} shows the square that is is looked at for each x and y coordinate. Cross multiplying the two vectors of adjacent sides results in the orientation vector for the point. As the loop goes through each point, it creates a triangle in three-dimensional space out of the existing points and calculated orientations, which are recorded in three-dimensional point and vector collections. Figure ~\ref{triangle} shows the recorded three-dimensional point, normal vectors and orientation of that triangle in the mesh. Each of these points must be added in the correct order, keeping with the right hand rule, so that each reconstructed triangle is oriented in the correct direction. While these three points and vectors are added, separate collections of the indices and texture information are recorded. 
