@@ -228,32 +228,37 @@ The RepRap Prusa Mendel Iteration 2 is nothing more than a parts list which list
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=70mm]{figures/cadyholdingball.png}
-	\caption{The three-dimensional data with the correct background filtered out}
+	\includegraphics[width=70mm]{figures/cadyholdingball2.png}
+	\caption{Comparison of depth frame data with background filtered render}
 	\label{balls2}
 \end{figure}
+
+It was determined after initial trials with the software that by not filtering the depth data, the final mesh had a lot of noise which made the figure unpleasant to observe. By implementing a Gaussian-based Bilateral Filter, the results improved significantly and provided an elegant and clean model that could then be printed. This process can best be seen in Figure ~\ref{fig:filtering}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=70mm]{figures/cadyholdingball2.png}
-	\caption{Comparison of the raw depth data and the Triangles that represent the three-dimensional data}
-	\label{balls2}
+	\begin{subfigure}[H]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{figures/unfiltered}
+		\caption{Non-filtered scan}
+	\end{subfigure}
+	\begin{subfigure}[H]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{figures/filter}
+		\caption{Gaussian filtered scan}
+	\end{subfigure}
+	\caption{As can be seen on the right figure it is clear that filtering the depth data provides 
+		a nicer, cleaner, and smoother result.
+	}
+	\label{fig:filtering}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \begin{subfigure}[H]{0.4\textwidth}
-        \includegraphics[width=\textwidth]{figures/filter}
-        \caption{Gaussian filtered scan}
-    \end{subfigure}
-    \begin{subfigure}[H]{0.4\textwidth}
-        \includegraphics[width=\textwidth]{figures/unfiltered}
-        \caption{Non-filtered scan}
-    \end{subfigure}
-    \caption{
-        As can be seen on the left figure it is clear that filtering the depth data provides a nicer and cleaner result.
-    }
-    \label{fig:cad}
+Through all these trial and error steps a final pro
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=70mm]{figures/actionfigures.jpg}
+	\caption{Final result - 3-D printed objects that were scanned through the KinectScan application}
+	\label{actionfigures}
 \end{figure}
 
 \section{Discussion}
