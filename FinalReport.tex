@@ -53,17 +53,16 @@
 \input{cover_page}
 
 \begin{abstract}
-The Microsoft Kinect for Windows has proven to be a valuable tool in the field of computer vision. The Kinect is comprised of an infrared laser projector and depth sensor. The depth data of a scene is run through a bilateral filter and vector mathematics is used to define the coordinates, connecting lines, the vertices, and edges to form a three-dimensional mesh. The software displays the raw depth data and infrared camera image, this allows the user to filter out objects closer or further than a specified depth, and exports the reconstructed three-dimensional mesh. That mesh is then sliced into horizontal layers and converted into G-Code, a machine language that maneuvers the three-dimensional printer where to extrude the ABS plastic to create a physical replica of the reconstructed object. 
+The Microsoft Kinect for Windows has proven to be a valuable tool in the field of computer vision. The Kinect is comprised of an infrared laser projector and depth sensor. The depth data of a scene is run through a bilateral filter and vector mathematics is used to define the coordinates, connecting lines, the vertices, and edges to form a three-dimensional mesh. The software displays the raw depth data and infrared camera image, this allows the user to filter out objects closer or further than a specified depth, and exports the reconstructed three-dimensional mesh. That mesh is then sliced into horizontal layers and converted into G-Code, a machine language that maneuvers the 3-D printer where to extrude the ABS plastic to create a physical replica of the reconstructed object. 
 \end{abstract}
+
 \tableofcontents
-
-
 
 \section{Introduction}
 % A statement of the problem and its major components in your own words.
 The Computer Vision--Based Three-Dimensional Reconstruction for Object Replication is accomplished by using a Kinect for Windows. Originally, the Kinect was created for entertainment, but recently it has been introduced to the field of robotics and computer vision. The Kinect is a quick, reliable, and affordable tool that uses a near-infrared laser pattern projector and an IR camera, along with the sensor and software development kit to calculate three-dimensional measurements.
 
-The robotics field is beginning to find an increasing number of uses for the three-dimensional printer. The most innovative aspect of the three-dimensional printer is the ability to print an object, regardless of interconnecting internal components, and to have it function as intended. For example, any connecting gears that are printed with the three-dimensional printer will in fact turn as they are supposed to.
+The robotics field is beginning to find an increasing number of uses for the 3-D printer. The most innovative aspect of the 3-D printer is the ability to print an object, regardless of interconnecting internal components, and to have it function as intended. For example, any connecting gears that are printed with the 3-D printer will in fact turn as they are supposed to.
 
 \section{Methods}
 % A description of how each component in the objective is achieved.
@@ -75,7 +74,7 @@ Once the Kinect has been calibrated, all that is needed for the stereo reconstru
 
 %Depth Disparity Image
 \begin{figure}[H]
-\centering
+	\centering
 	\begin{tikzpicture}
 		\tkzDefPoint(0,0){O_{L}}\tkzDefPoint(6,0){O_{R}}
 		\tkzDefPoint(3,4){P}\tkzDefPoint(-.5,.5){leftL}
@@ -96,12 +95,12 @@ Once the Kinect has been calibrated, all that is needed for the stereo reconstru
 		\tkzLabelPoints[above right](A)
 		\tkzLabelPoints[below right](B)
 	\end{tikzpicture}
-\caption{Visual Representation of Depth Disparity}
+	\caption{Visual Representation of Depth Disparity.}
 \end{figure}
 
 P is the location of the object in the world, $O_{L}$ and $O_{R}$ are the left and right camera centers, $P_{R}$ and $P_{L}$ are the appearance of the point P in the two image planes where, 
 \begin{figure}[H]
-\centering
+	\centering
 	 $P_{L}= 
 	\begin{bmatrix}
 		x_{L} \\
@@ -110,17 +109,17 @@ P is the location of the object in the world, $O_{L}$ and $O_{R}$ are the left a
 \end{figure}
 The distance between $O_{L}$ and $O_{R}$ is T, the distance between the left and right camera. The distance between A and B is the focal length of each of the cameras. If the distance between P and B is defined as distance Z, the following equation  can be used to represent the ratio between T and Z, using the theorem of like triangles,
 \begin{figure}[H]
-\centering
+	\centering
 	$\frac{T}{Z}=\frac{T+x_{L}-x_{R}}{Z-f} or \frac{T-{x_{R}-x_{L}}}{Z-f}$. 
 \end{figure} 
 Cross multiplying these equations results in,
 \begin{figure}[H]
-\centering
+	\centering
 	$\frac{Z(T-x_{R}-x_{L})}{Z-f} = \frac{T(Z-f)}{Z}$. 
 \end{figure}
 These calculations show that depth, Z, is inversely proportional to the disparity. Therefore,  
 \begin{figure}[H]
-\centering
+	\centering
 	$P_{L}= \frac{f^{L}P}{Z_{L}} $ and $P_{R}= \frac{f^{R}P}{Z_{R}}.$
 \end{figure} 
 
@@ -128,7 +127,7 @@ Once there is a corresponding point pair for P from the two images, an algorithm
 
 %Midpoint Algorithm Image
 \begin{figure}[H]
-\centering
+	\centering
 	\begin{tikzpicture}
 		\tkzDefPoint(0,0){p_{L}}\tkzDefPoint(6,0){p_{R}}
 		\tkzDefPoint(3,3){p_{a}}\tkzDefPoint(3,2){p_{b}}
@@ -145,29 +144,29 @@ Once there is a corresponding point pair for P from the two images, an algorithm
 		\tkzLabelPoints[above right](p_{R})
 		\tkzLabelPoints[above left](p_{L})
 	\end{tikzpicture}
-	\caption{Visual Representation of the Midpoint Algorithm}
+	\caption{Visual Representation of the Midpoint Algorithm.}
 \end{figure}
 
 Above are the rays $\vec{O_{R}p_{R}}$ and $\vec{O_{L}p_{L}}$. The line connecting the two vectors, perpendicular to both, is obtained by taking the cross product of these two vectors. The vector,
 \begin{figure}[H]
-\centering
+	\centering
 	 $\vec{p_{L}p_{b}} = a\vec{p_{L}}$, 
 \end{figure}	 
 since point $p_{R}$ is distance T away from $p_{L}$, 
 \begin{figure}[H]
-\centering
+	\centering
 	$\vec{p_{R}p_{a}} = b^{L}R_{R}\vec{p_{R}}+T$. 
 \end{figure}	
 The segment connecting these two vectors can be represented as,
 \begin{figure}[H]
-\centering
-	 $\vec{p_{a}p_{b}} = c\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$,
+	\centering
+	$\vec{p_{a}p_{b}} = c\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$,
 \end{figure}
 where $a,b,$ and $c$ are unknown constants that can be solved using the three aforementioned equations.
 
 The point P lies on the center of this line and be found by,
 \begin{figure}[H]
-\centering
+	\centering
  	$^{L}P=a\vec{p_{L}}+\frac{c}{2}\vec{p_{L}}x^{L}R_{R}\vec{p_{R}}$.
  \end{figure}
  In order to get the world point M, this point would be divided by the intrinsic and extrinsic matrices.
@@ -176,7 +175,7 @@ The point P lies on the center of this line and be found by,
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=70mm]{figures/kinect.jpg}
-	\caption{The Xbox Kinect. The sensor on the left is the infrared light source, the center is a RGB camera, and the three-dimensional 				depth camera is on the right. In addition to these cameras, the base has a motorized tilt and a multi-array 				microphone that goes along the bottom of the wand.}
+	\caption{The Xbox Kinect. The sensor on the left is the infrared light source, the center is a RGB camera, and the three-	dimensional depth camera is on the right. In addition to these cameras, the base has a motorized tilt and a multi-array microphone that goes along the bottom of the wand.}
 	\label{kinectlable}
 \end{figure}
 
@@ -185,11 +184,13 @@ The Kinect accomplishes triangulation by using the known information about the s
 \subsection{Bilateral Filter}
 In order to make the depth data more manageable, a bilateral filter is used to remove the erroneous measurements. The bilateral filter will take every point, and recalculate the value of that point based on the waited average of the surrounding pixels in a specified neighborhood. The process takes away some of the sharpness of the depth map, but it removes the noise that will skew the results of the three-dimensional reconstruction. The filter takes every pixel in the image and replaces its value with,
 \begin{figure}[H]
-\centering
- $BF[I]_{P} = \frac{1}{16} \left( \begin{array}{ccc}
-1 & 2 & 1 \\
-2 & 4 & 2 \\
-1 & 2 & 1 \end{array}  \right)$,
+	\centering
+	$BF[I]_{P} = \frac{1}{16} \left( 
+	\begin{array}{ccc}
+		1 & 2 & 1 \\
+		2 & 4 & 2 \\
+		1 & 2 & 1 
+	\end{array}  \right)$,
 \end{figure}
 times the neighborhood of the three by three square of pixels around the pixel that is being changed. The resulting pixel value represents the average of the nine pixels, where the closer pixels weights in the average are heavier than the further pixel values' weights.  
 
@@ -203,40 +204,40 @@ In order to filter out depth that is further than the intended value, the softwa
 
 % G-code Conversion
 \subsection{G-code Conversion}
-The RepRap firmware uses G-code to communicate to the three-dimensional printer, specifically to define the print head movements. G-code has commands that tell the print head to move to a certain point with rapid or controlled movement, turn on a cooling fan, or select a different extruding tool. Since the RepRap three-dimensional printer does not have as many features, the G-code generator does not have to add much complicated code, but rather instructions to the printer head. Since the printer continuously dispenses plastic, it is necessary to find a path for it to take that will build up the reconstructed object layer by layer without placing too much plastic in any specific area. The conversion requires cutting up the reconstructed object into layers and then finding the best path to traverse that layer without overlapping any part of that path. The G-code converter takes in the STL file, cuts it up into horizontal layers, and then calculates the about of material that is needed to fill each slice. 
+The RepRap firmware uses G-code to communicate to the 3-D printer, specifically to define the print head movements. G-code has commands that tell the print head to move to a certain point with rapid or controlled movement, turn on a cooling fan, or select a different extruding tool. Since the RepRap 3-Dl printer does not have as many features, the G-code generator does not have to add much complicated code, but rather instructions to the printer head. Since the printer continuously dispenses plastic, it is necessary to find a path for it to take that will build up the reconstructed object layer by layer without placing too much plastic in any specific area. The conversion requires cutting up the reconstructed object into layers and then finding the best path to traverse that layer without overlapping any part of that path. The G-code converter takes in the STL file, cuts it up into horizontal layers, and then calculates the about of material that is needed to fill each slice. 
 
 %3-D printer
 \subsection{Building a 3-D Printer}
-The RepRap Prusa Mendel Iteration 2 is nothing more than a parts list which lists all of the necessary components and design files for building the printer from scratch. A non-exhaustive list of components include; threaded metal rods, linear bearings, nuts, screws, washers, and electrical heating elements. These parts were purchased from a2aprinter located in Toronto, Canada and arrived by early February. Once the printer arrived, work began to meticulously build the kit following the poorly written specified instructions. In all, there are over 100 pieces to make the printer and each fit in custom 3-D printed parts that were extruded using a secondary MakerBot Replicator 2 3-D printer owned by the IEEE Princeton Central Jersey Section. The final printer includes a heated extruder nozzle that heats up to 400 degrees Fahrenheit to melt the ABS plastic and a heating bed which heats up to about 200 degrees Fahrenheit to keep the printing object soft and malleable as to allow the completed object to cool evenly since the plastic shrinks minimally when cooling and would cause defiguration in the final printed object.
+The RepRap Prusa Mendel Iteration 2 is nothing more than a parts list which lists all of the necessary components and design files for building the printer from scratch. A non-exhaustive list of components include; threaded metal rods, linear bearings, nuts, screws, washers, and electrical heating elements. These parts were purchased from A2APrinter located in Toronto, Canada and arrived by early February. Once the printer arrived, work began to meticulously build the kit following the poorly written specified instructions. In all, there are over 100 pieces to make the printer and each fit in custom 3-D printed parts that were extruded using a secondary MakerBot Replicator 2 3-D printer owned by the IEEE Princeton Central Jersey Section. The final printer includes a heated extruder nozzle that heats up to 400 degrees Fahrenheit to melt the ABS plastic and a heating bed which heats up to about 200 degrees Fahrenheit to keep the printing object soft and malleable as to allow the completed object to cool evenly since the plastic shrinks minimally when cooling and would cause defiguration in the final printed object.
 
 \section{Experimental Results}
 %Measurements, repeated trials (for validation), error/performance analysis (as a function of system parameters). Include plots, images or tables to describe measurement values.
 %Figure 4 blurb
-To obtain an initial grasp of how the Kinect captures data from a 3-D scene premade programs included in the Kinect SDK were used. Figure ~\ref{waterbot}  shows the initial tests done using the Kinect Explorer-WPF which allows the user to control the angle of the Kinect along with other built in settings. This program records the depth data from the IR Depth Sensor and maps the color data from the RGB cameras to the corresponding points on the depth image to recreate a 3-D scene. As can be seen in the image, the data is very rough and contains a significant amount of missing data causing empty space when viewing the recreation from certain angles. This is due to the fact that only one image of the scene is used and has no way to obtain information for objects hidden behind closer objects in the scene.
+To obtain an initial grasp of how the Kinect captures data from a three-dimensional scene premade programs included in the Kinect SDK were used. Figure ~\ref{waterbot}  shows the initial tests done using the Kinect Explorer-WPF which allows the user to control the angle of the Kinect along with other built in settings. This program records the depth data from the IR Depth Sensor and maps the color data from the RGB cameras to the corresponding points on the depth image to recreate a three-dimensional scene. As can be seen in the image, the data is very rough and contains a significant amount of missing data causing empty space when viewing the recreation from certain angles. This is due to the fact that only one image of the scene is used and has no way to obtain information for objects hidden behind closer objects in the scene.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=70mm]{figures/kinectwaterbottle.png}
-	\caption{The Kinect raw depth field, with the RGB image mapped to it, without bilateral filter}
+	\caption{The Kinect raw depth field, with the RGB image mapped to it, without bilateral filter.}
 	\label{waterbot}
 \end{figure}
 
 %Figure 5 blurb
-The next step moving forward was to transform this data into a 3-D mesh. The basic primitive of a 3-D mesh is a polygon, in this case a triangle, which when linked with other polygons creates a contoured surface to represent the object. This representation was initially achieved in by creating single triangles at each depth data, which scaled in size depending on the point's distance relative to the Kinect camera as seen in Figure ~\ref{3dtri}. Using this representation as a starting platform, it was quickly determined that much of the data would not contribute to the construction of the model and could therefore be discarded. To achieve this, near and far data filters were applied to the data sets which would eliminate anything closer or further than the set values of the near and far filters respectively.
+The next step moving forward was to transform this data into a three-dimensional mesh. The basic primitive of a three-dimensional mesh is a polygon, in this case a triangle, which when linked with other polygons creates a contoured surface to represent the object. This representation was initially achieved in by creating single triangles at each depth data, which scaled in size depending on the point's distance relative to the Kinect camera as seen in Figure ~\ref{3dtri}. Using this representation as a starting platform, it was quickly determined that much of the data would not contribute to the construction of the model and could therefore be discarded. To achieve this, near and far data filters were applied to the data sets which would eliminate anything closer or further than the set values of the near and far filters respectively.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=70mm]{figures/3dtriangles.png}
-	\caption{Triangles representing the three-dimensional data}
+	\caption{Triangles representing the three-dimensional data.}
 	\label{3dtri}
 \end{figure}
 
 %Figure 6 blurb
-With near and far depth filters in place, the excess data was removed from the 3-D representation which was referred to as the "3-D mesh" at that stage of the project. A significantly cleaner mesh can be seen in Figure ~\ref{balls2}, where all but the subject of the image is excluded, removing the unwanted objects such as the chairs, tables, and wall that can be seen in the IR Depth Image in the upper right hand corner. This stage of the 3-D mesh still contained missing data which caused discontinuities in the mesh which would not allow for the mesh to be a printable object. These "holes" would be addressed at a later stage when a more accurate representation of the mesh could be obtained.
+With near and far depth filters in place, the excess data was removed from the three-dimensional representation which was referred to as the "3-D mesh" at that stage of the project. A significantly cleaner mesh can be seen in Figure ~\ref{balls2}, where all but the subject of the image is excluded, removing the unwanted objects such as the chairs, tables, and wall that can be seen in the IR Depth Image in the upper right hand corner. This stage of the 3-D mesh still contained missing data which caused discontinuities in the mesh which would not allow for the mesh to be a printable object. These "holes" would be addressed at a later stage when a more accurate representation of the mesh could be obtained.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=70mm]{figures/cadyholdingball2.png}
-	\caption{Comparison of depth frame data with background filtered render}
+	\caption{Comparison of depth frame data with background filtered render.}
 	\label{balls2}
 \end{figure}
 
@@ -258,48 +259,49 @@ It was determined after initial trials with the software that by not filtering t
 	\label{fig:filtering}
 \end{figure}
 
-Through all these trial and error steps a final product of miniature figurines was achieved (Figure ~\ref{fig:actionfigures}). These figurines are created using the Gaussian-based Bilaterally filtered data in order to remove noise from the surface. Each print is scaled to 20\% of its original size, which is approximately 50mm tall, and on average takes between 35-45 minutes to print depending on the model. The full measurements of both the printed model, and approximate size of the subject of the reconstruction can be seen below in Figure ~\ref{fig:sizes}, with the full size measurement on the left and the model measurement displayed on the right.
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[H]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{figures/ryanmeasure}
-		\caption{Full size model}
-	\end{subfigure}
-	\begin{subfigure}[H]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{figures/ryanhandstandmeasure}
-		\caption{Scaled down model}
-	\end{subfigure}
-	\caption{Measurement comparison of fullsize model and scaled down model}
-	\label{fig:sizes}
-\end{figure}
+Through all these trial and error steps a final product of miniature figurines was achieved as can be seen in Figure ~\ref{fig:actionfigures}. These figurines were created by scanning the project creators in various poses, then exporting the meshes and creating the machine language G-code which is read by the printer. The final printed object is 20\% of the original exported mesh and 100 times smaller from the original depth data, this comes to a height of about 50mm tall and on average takes between 20 - 30 minutes to print.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=70mm]{figures/actionfigures.jpg}
-	\caption{Final result - 3-D printed objects that were scanned through the KinectScan application}
-	\label{actionfigures}
+	\caption{Final result - 3-D printed objects that were scanned through the KinectScan application.}
+	\label{fig:actionfigures}
 \end{figure}
 
+To check the accuracy of the three-dimensional models versus real world height, Ryan held a tape measure above his head which came out to approximately 213.36 cm. A height measurement was also performed in the 3-D model software which came out to 210.257 cm. The process can be seen in Figure ~\ref{fig:sizes} and comes out to a 1.45\% error which shows that the work is fairly accurate.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[H]{0.4\textwidth}
+		\includegraphics[height=108mm, width=\textwidth]{figures/ryanmeasure}
+		\caption{Actual Height - 7 ft or 213.36 cm}
+	\end{subfigure}
+	\begin{subfigure}[H]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{figures/ryanhandstandmeasure}
+		\caption{3-D mesh - 6.81 ft or 210.257 cm}
+	\end{subfigure}
+	\caption{Comparison between actual and modeled height, the results are very close.}
+	\label{fig:sizes}
+\end{figure}
 \section{Discussion}
 %Discuss difficulties, sources of error, future work and extensions.
-Part of the issue of working with this three-dimensional printer was that many of the parts used in the construction of the machine were actually printed by another three-dimensional printer. Therefore, before we could start the construction of the printer, we had to wait for all of the correct parts to be printed. We discovered two important parts were missing and had to go to the Rutgers Maker Space to get these parts printed. We also found that many of the holes in the plastic parts were made to be the exact diameter of the rods that were supposed to be fitting in; it took a lot of force to get some of the components to fit together properly. At one point we tried to use hot water to make the printed plastic more malleable, but we fear that this made some of the pieces warp.
+Part of the issue of working with this 3-D printer was that many of the parts used in the construction of the machine were actually printed by another 3-D printer. Therefore, before we could start the construction of the printer, we had to wait for all of the correct parts to be printed. We discovered two important parts were missing and had to go to the Rutgers Maker Space to get these parts printed. We also found that many of the holes in the plastic parts were made to be the exact diameter of the rods that were supposed to be fitting in; it took a lot of force to get some of the components to fit together properly. At one point we tried to use hot water to make the printed plastic more malleable, but we fear that this made some of the pieces warp.
 
-Another big issue with the construction of the three-dimensional printer was the lack of good documentation on the assembly process. The triangular base structure had to be taken apart and reassembled multiple time in order to fix errors. One example was the motor bracket for the motor that controls the movement along the y-axis: there were not good diagrams to show which side of the machine the part should be placed and what direction it should be oriented. Figure~\ref{parts} shows a number of the unlabeled parts that we received from the Institute of Electrical and Electronics Engineers (IEEE). Since documentation is hard to find and none of the parts were labeled, we also had trouble finding the correct STL files to send to get printed. We knew that we were missing the brackets that connect the two top motors to the threaded rod that controls the movement along the z-axis, but we did not know exactly what file needed to be printed.
+Another big issue with the construction of the 3-D printer was the lack of good documentation on the assembly process. The triangular base structure had to be taken apart and reassembled multiple time in order to fix errors. One example was the motor bracket for the motor that controls the movement along the y-axis: there were not good diagrams to show which side of the machine the part should be placed and what direction it should be oriented. Figure~\ref{parts} shows a number of the unlabeled parts that we received from the Institute of Electrical and Electronics Engineers (IEEE). Since documentation is hard to find and none of the parts were labeled, we also had trouble finding the correct STL files to send to get printed. We knew that we were missing the brackets that connect the two top motors to the threaded rod that controls the movement along the z-axis, but we did not know exactly what file needed to be printed.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=70mm]{figures/WP_20130223_002.jpg}
-	\caption{Parts of the three-dimensional Printer}
+	\caption{Parts of the 3-D  Printer.}
 	\label{parts}
 \end{figure}
 
-Even once the mechanical parts of the three-dimensional printer have been constructed, we still need to calibrate all of the axes, add all of the electrical components, calibrate the firmware, and build the protective frame around the printer. Figure~\ref{basebuilt} shows the constructed frame, x,y, and z-axes and the installed printed. One of the issues that we will run into as we complete the three-dimensional printer is the extruder. The extruding component is responsible for heating and melting the Acrylonitrile Butadiene Styrene (ABS) plastic and placing it onto the right spot on the heat bed. We have discovered a problem that normal solder cannot handle the heat that is needed to melt the ABS plastic, and the piece falls apart as the machine heats up. In order to fix the melting issue, we need to order silver solder that will be capable of withstanding 221 degrees Fahrenheit. 
+Even once the mechanical parts of the 3-D printer have been constructed, we still need to calibrate all of the axes, add all of the electrical components, calibrate the firmware, and build the protective frame around the printer. Figure~\ref{basebuilt} shows the constructed frame, x,y, and z-axes and the installed printed. One of the issues that we will run into as we complete the 3-D printer is the extruder. The extruding component is responsible for heating and melting the Acrylonitrile Butadiene Styrene (ABS) plastic and placing it onto the right spot on the heat bed. We have discovered a problem that normal solder cannot handle the heat that is needed to melt the ABS plastic, and the piece falls apart as the machine heats up. In order to fix the melting issue, we need to order silver solder that will be capable of withstanding 221 degrees Fahrenheit. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=70mm]{figures/photo.JPG}
-	\caption{Construction of the three-dimensional Printer Frame and x,y, and z-axes}
+	\caption{Construction of the 3-D Printer Frame and x,y, and z-axes.}
 	\label{basebuilt}
 \end{figure}
 
@@ -354,16 +356,16 @@ It seems as though the Kinect is a popular choice of camera and depth sensor in 
 
 \subsection{3-D Printing Future}
 %http://www.nytimes.com/2010/09/14/technology/14print.html?pagewanted=all&_r=0
-One of the most innovative uses for the three-dimensional Printer is its application in the medical field. Since 2010, people have been using three-dimensional printers to print out prosthetic limbs. One company in California has been printing the customizable prosthetics, which cost about one tenth of traditional prosthetics limbs. Another company is looking at the possibility of using a three-dimensional printer to print a house. Currently, the design fits on the back of a tractor trailer and the three-dimensional printer prints out custom concrete parts the are assembled to complete the house. Some three-dimensional printers have the ability to change the printing head, so it can begin printing with one material and then switch to a different material, all based on the code it receives. That a three-dimensional printer could theoretically print the concrete part of the house and switch to printing the plastic siding or the glass windows, all on the same path around the outside of the house. The most important aspect of these three-dimensional printer's application is that it drastically cuts down on production costs, allowing the consumer to pay a lower price and get a completely customized product. Rather than paying a person to design the object and have a another construct it, with a three-dimensional printer all that needs to be done is the design and the three-dimensional printer automates the entire construction process. For example, the three-dimensional printed prosthetics cost 5,000 dollars to print and customize by covering the three-dimensional printed material in a shoe or sleeve while a normal generic prosthetics would cost about 60,000 dollars.\cite{cite5} The three-dimensional printer is a piece of technology that could continue to make the price of consumer goods fall and allow for more customization than has ever existed for consumer products.
+One of the most innovative uses for the 3-D printer is its application in the medical field. Since 2010, people have been using 3-D printers to print out prosthetic limbs. One company in California has been printing the customizable prosthetics, which cost about one tenth of traditional prosthetics limbs. Another company is looking at the possibility of using a 3-D printer to print a house. Currently, the design fits on the back of a tractor trailer and the 3-D printer prints out custom concrete parts the are assembled to complete the house. Some 3-D printers have the ability to change the printing head, so it can begin printing with one material and then switch to a different material, all based on the code it receives. That a 3-D printer could theoretically print the concrete part of the house and switch to printing the plastic siding or the glass windows, all on the same path around the outside of the house. The most important aspect of these 3-D printer's application is that it drastically cuts down on production costs, allowing the consumer to pay a lower price and get a completely customized product. Rather than paying a person to design the object and have a another construct it, with a 3-D printer all that needs to be done is the design and the 3-D printer automates the entire construction process. For example, the three-dimensional printed prosthetics cost 5,000 dollars to print and customize by covering the three-dimensional printed material in a shoe or sleeve while a normal generic prosthetics would cost about 60,000 dollars.\cite{cite5} The 3-D printer is a piece of technology that could continue to make the price of consumer goods fall and allow for more customization than has ever existed for consumer products.
 
 %http://www.popsci.com/science/article/2013-03/get-brand-new-skull-3-d-printing
 In recent news, biomedical scientists have taken the three-dimensional printing technology a step further than prosthetics. A man had 75\% of his skull replaced but a three-dimensional printed implant made by Oxford Performance Materials. since the 1940's, normal plastics have been used  to replace missing bone fragments; now, three-dimensional modeling techniques can be used to exactly match the size and shape of the plastic to someones skull. The Connecticut based company combined the three-dimensional modeling techniques with three-dimensional printing technology to produce the replacement part that took only five days to fabricate.\cite{cite9} The material used has some of the same properties as bones and are osteoconductive, meaning the skull will actually grow and attach itself to the implant. The plastic is much better than metals, which would block doctors from seeing past the implant in X-rays. The company is now also looking at using this procedure to three-dimensional print other replacement bones for victims of cancerous bone or trauma.
 
 %http://p8080-140.234.1.9.proxy.libraries.rutgers.edu/EPSessionID=a1528ded19e99cdd2b1aebe7896ee2/EPHost=web.ebscohost.com/EPPath/ehost/detail?sid=e23287e9-aecd-4a83-bec6-90cedb7dace7%40sessionmgr4&vid=1&hid=22&bdata=JnNpdGU9ZWhvc3QtbGl2ZQ%3d%3d#db=ofm&AN=85463174
- Even though lower cost of production is a goal for many industries, the three-dimensional printing technology can be considered a disruptive technology, meaning that over the course of a short period of time it could change an existing market and value network, while replacing existing technology. An article in the Harvard Business Review explains that goods would be produced at or close to their point of purchase or consumption. Even if this is not the case with every industry, the cost will be offset by the elimination of shipping of the completed object to the consumer, something like car parts could be printed in a metropolitan area rather than made and shipped from a factory. The article also mentions how the three-dimensional printer would allow for cheap and efficient customization of these products. Since changing the shape, color, or material of what the machine is printing is only a mater of changing code, the first model could be relatively different than the second model for virtually no extra cost. \cite{cite6} The three-dimensional printer could also potentially affect the global market. Many products are manufactured overseas since it is much cheaper for the pieces to be created and assembled by underpaid workers. When three-dimensional printing is perfected, the parts could be made and assembled by a machine in the US for less than it costs to have the product manufactured and shipped from overseas. 
+ Even though lower cost of production is a goal for many industries, the three-dimensional printing technology can be considered a disruptive technology, meaning that over the course of a short period of time it could change an existing market and value network, while replacing existing technology. An article in the Harvard Business Review explains that goods would be produced at or close to their point of purchase or consumption. Even if this is not the case with every industry, the cost will be offset by the elimination of shipping of the completed object to the consumer, something like car parts could be printed in a metropolitan area rather than made and shipped from a factory. The article also mentions how the 3-D printer would allow for cheap and efficient customization of these products. Since changing the shape, color, or material of what the machine is printing is only a mater of changing code, the first model could be relatively different than the second model for virtually no extra cost. \cite{cite6} The 3-D printer could also potentially affect the global market. Many products are manufactured overseas since it is much cheaper for the pieces to be created and assembled by underpaid workers. When three-dimensional printing is perfected, the parts could be made and assembled by a machine in the US for less than it costs to have the product manufactured and shipped from overseas. 
 
 %http://p8080-140.234.1.9.proxy.libraries.rutgers.edu/EPSessionID=e9758f18885b96365d7e86472d628a/EPHost=web.ebscohost.com/EPPath/ehost/detail?sid=2b6863d6-ae3a-4000-9104-efa71fbc900c%40sessionmgr14&vid=1&hid=24&bdata=JnNpdGU9ZWhvc3QtbGl2ZQ%3d%3d#db=ofm&AN=85517553
-An article in Machine Design talks about what changes are being made to the three-dimensional printers in order to make them more durable, user friendly, and affordable. One brand, LeapFrog, has made the entire device out of aluminum and  replaced the stepper-motor drivers with professional drivers that last longer. The company has also added a duel option extruder so that the printer could construct something like a bridge by adding the plastic from one extruder and a water soluble support system with the other extrude. The water soluble support system can be easily washed away once the printing is finished. The printer also uses PLA plastic, which is more brittle and has a lower melting temperature and can print smoother edges than the usual ABS plastic. Another brand, FormLabs, uses a liquid photopolymer instead of a spool of plastic. The resin cuts the price of printing materials in half and allows for a layer thickness of only 25 microns. The RepRap three-dimensional printer has been designated a self-replicating printer because it can be used to print parts for constructing another three-dimensional printer. It is believed that between 20,000 and 30,000 of these machines are now in existence.\cite{cite7} The company Staples has started "Staples Easy three-dimensional" in Belgium and the Netherlands, where anyone can upload their file to the center and later pick up the three-dimensional model at their local Staples or have it shipped to their house. Services like this are a sign that three-dimensional printing will soon be as mainstream as two-dimensional printing is.
+An article in Machine Design talks about what changes are being made to the 3-D printers in order to make them more durable, user friendly, and affordable. One brand, LeapFrog, has made the entire device out of aluminum and  replaced the stepper-motor drivers with professional drivers that last longer. The company has also added a duel option extruder so that the printer could construct something like a bridge by adding the plastic from one extruder and a water soluble support system with the other extrude. The water soluble support system can be easily washed away once the printing is finished. The printer also uses PLA plastic, which is more brittle and has a lower melting temperature and can print smoother edges than the usual ABS plastic. Another brand, FormLabs, uses a liquid photopolymer instead of a spool of plastic. The resin cuts the price of printing materials in half and allows for a layer thickness of only 25 microns. The RepRap 3-D printer has been designated a self-replicating printer because it can be used to print parts for constructing another 3-D printer. It is believed that between 20,000 and 30,000 of these machines are now in existence.\cite{cite7} The company Staples has started "Staples Easy three-dimensional" in Belgium and the Netherlands, where anyone can upload their file to the center and later pick up the three-dimensional model at their local Staples or have it shipped to their house. Services like this are a sign that three-dimensional printing will soon be as mainstream as two-dimensional printing is.
 
 \section{Acknowledgment}
 This project was made possible by a research grant sponsored by the IEEE Princeton Central Jersey Section, it is with their support of the donation of the RepRap Prusa Mendel Iteration 2 3-D Printer that and a grant of \$250 that the project was able to be successfully completed.
