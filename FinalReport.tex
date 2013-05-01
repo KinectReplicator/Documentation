@@ -212,7 +212,7 @@ The RepRap Prusa Mendel Iteration 2 is nothing more than a parts list which list
 \section{Experimental Results}
 %Measurements, repeated trials (for validation), error/performance analysis (as a function of system parameters). Include plots, images or tables to describe measurement values.
 %Figure 4 blurb
-To obtain an initial grasp of how the Kinect captures data from a 3-D scene premade programs included in the Kinect SDK were used. Figure 4 shows the initial tests done using the Kinect Explorer-WPF which allows the user to control the angle of the Kinect along with other built in settings. This program records the depth data from the IR Depth Sensor and maps the color data from the RGB cameras to the corresponding points on the depth image to recreate a 3-D scene. As can be seen in the image, the data is very rough and contains a significant amount of missing data causing empty space when viewing the recreation from certain angles. This is due to the fact that only one image of the scene is used and has no way to obtain information for objects hidden behind closer objects in the scene.
+To obtain an initial grasp of how the Kinect captures data from a 3-D scene premade programs included in the Kinect SDK were used. Figure ~\ref{waterbot}  shows the initial tests done using the Kinect Explorer-WPF which allows the user to control the angle of the Kinect along with other built in settings. This program records the depth data from the IR Depth Sensor and maps the color data from the RGB cameras to the corresponding points on the depth image to recreate a 3-D scene. As can be seen in the image, the data is very rough and contains a significant amount of missing data causing empty space when viewing the recreation from certain angles. This is due to the fact that only one image of the scene is used and has no way to obtain information for objects hidden behind closer objects in the scene.
 
 \begin{figure}[H]
 	\centering
@@ -222,7 +222,7 @@ To obtain an initial grasp of how the Kinect captures data from a 3-D scene prem
 \end{figure}
 
 %Figure 5 blurb
-The next step moving forward was to transform this data into a 3-D mesh. The basic primitive of a 3-D mesh is a polygon, in this case a triangle, which when linked with other polygons creates a contoured surface to represent the object. This representation was initially achieved in by creating single triangles at each depth data, which scaled in size depending on the point's distance relative to the Kinect camera as seen in Figure 5. Using this representation as a starting platform, it was quickly determined that much of the data would not contribute to the construction of the model and could therefore be discarded. To achieve this, near and far data filters were applied to the data sets which would eliminate anything closer or further than the set values of the near and far filters respectively.
+The next step moving forward was to transform this data into a 3-D mesh. The basic primitive of a 3-D mesh is a polygon, in this case a triangle, which when linked with other polygons creates a contoured surface to represent the object. This representation was initially achieved in by creating single triangles at each depth data, which scaled in size depending on the point's distance relative to the Kinect camera as seen in Figure ~\ref{3dtri}. Using this representation as a starting platform, it was quickly determined that much of the data would not contribute to the construction of the model and could therefore be discarded. To achieve this, near and far data filters were applied to the data sets which would eliminate anything closer or further than the set values of the near and far filters respectively.
 
 \begin{figure}[H]
 	\centering
@@ -232,7 +232,7 @@ The next step moving forward was to transform this data into a 3-D mesh. The bas
 \end{figure}
 
 %Figure 6 blurb
-With near and far depth filters in place, the excess data was removed from the 3-D representation which was referred to as the "3-D mesh" at that stage of the project. A significantly cleaner mesh can be seen in Figure 6, where all but the subject of the image is excluded, removing the unwanted objects such as the chairs, tables, and wall that can be seen in the IR Depth Image in the upper right hand corner. This stage of the 3-D mesh still contained missing data which caused discontinuities in the mesh which would not allow for the mesh to be a printable object. These "holes" would be addressed at a later stage when a more accurate representation of the mesh could be obtained.
+With near and far depth filters in place, the excess data was removed from the 3-D representation which was referred to as the "3-D mesh" at that stage of the project. A significantly cleaner mesh can be seen in Figure ~\ref{balls2}, where all but the subject of the image is excluded, removing the unwanted objects such as the chairs, tables, and wall that can be seen in the IR Depth Image in the upper right hand corner. This stage of the 3-D mesh still contained missing data which caused discontinuities in the mesh which would not allow for the mesh to be a printable object. These "holes" would be addressed at a later stage when a more accurate representation of the mesh could be obtained.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=70mm]{figures/cadyholdingball2.png}
