@@ -195,11 +195,53 @@ In order to make the depth data more manageable, a bilateral filter is used to r
 times the neighborhood of the three by three square of pixels around the pixel that is being changed. The resulting pixel value represents the average of the nine pixels, where the closer pixels weights in the average are heavier than the further pixel values' weights.  
 
 \subsection{Mesh Construction}
-Once the depth data has been filtered, it can be used to create a three-dimensional mesh of the object. At each pixel location two vectors are made, each connecting that three-dimensional point to the next point to the right and the next point below. Cross multiplying these two vectors results in the orientation vector for the point. As the loop goes through each point, it created a triangle in three-dimensional space out of the existing points and calculated orientations, which are recorded in three-dimensional point and vector collections. Each of these points must be added in the correct order, keeping with the right hand rule, so that each reconstructed triangle is oriented in the correct direction. While these three points and vectors are added, separate collections of the indices and texture informations are recorded. 
+Once the depth data has been filtered, it can be used to create a three-dimensional mesh of the object. At each pixel location two vectors are made, each connecting that three-dimensional point to the next point to the right and the next point below. Figure ~\ref{square} shows the square that is is looked at for each x and y coordinate. Cross multiplying the two vectors of adjacent sides results in the orientation vector for the point. As the loop goes through each point, it creates a triangle in three-dimensional space out of the existing points and calculated orientations, which are recorded in three-dimensional point and vector collections. Figure ~\ref{triangle} shows the recorded three-dimensional point, normal vectors and orientation of that triangle in the mesh. Each of these points must be added in the correct order, keeping with the right hand rule, so that each reconstructed triangle is oriented in the correct direction. While these three points and vectors are added, separate collections of the indices and texture information are recorded. 
 
-While reconstructing the front face of the mesh, the code goes through every x and y pixel coordinate starting at (0,0) and ending with (320,240), incrementing by a set number. Down sampling, for testing, was accomplished by setting the number to two so that only every other point was processed. In the KinectScan software, the user can crop out the left, right, top or bottom of the image. Changing these sliders indicated where on the image the reconstruction of the mesh is going to begin and end. The user can also specify what they would like the minimum and maximum depth to be. 
+%Mesh square
+\begin{figure}[H]
+\centering
+	\begin{tikzpicture}
+		\tkzDefPoint(0,3){p_{1}}\tkzDefPoint(3,3){p_{2}}
+		\tkzDefPoint(0,0){p_{3}}\tkzDefPoint(3,0){p_{4}}
+		\tkzDrawSegments(p_{1},p_{2} p_{2},p_{4} p_{3},p_{4}  p_{1},p_{3} p_{2},p_{3})
+		\tkzDrawPoint(p_{1})
+		\tkzDrawPoint(p_{2})
+		\tkzDrawPoint(p_{3})
+		\tkzDrawPoint(p_{4})
+		\tkzLabelPoints[above left](p_{1})
+		\tkzLabelPoints[above right](p_{2})
+		\tkzLabelPoints[below left](p_{3})
+		\tkzLabelPoints[below right](p_{4})
+	\end{tikzpicture}
+	\caption{The square used to build the three-dimensional mesh}
+		\label{square}
+\end{figure}
 
-In order to filter out depth that is further than the intended value, the software looks at the square where the point of interest is the upper left corner.  If all four points are outside of the depth range, that point is skipped. If any of the four points on that square are within the depth range, the square is constructed. For the square, any point that is not within the depth range is given the depth of the back wall, the value specified by the user. Lastly, the back wall of the three-dimensional reconstruction is built. A loop goes through every point that is already in the three-dimensional point collection, each point is copied to the end of the collection with the depth changed to the depth of the back wall. The same number of orientation vectors are added to the collection of three-dimensional vectors, each one equaling [0,0,-1]. 
+While reconstructing the front face of the mesh, the code goes through every x and y pixel coordinate starting at (0,0) and ending with (320,240), incrementing by a set number. Down sampling for testing was accomplished by setting the number to two so that only every other point was processed. In the software the user can crop out the left, right, top or bottom of the image. Changing these sliders indicates where on the image the reconstruction of the mesh is going to begin and end. The user can also specify what they would like the minimum and maximum depth to be. 
+
+%Mesh Triangle
+\begin{figure}[H]
+\centering
+	\begin{tikzpicture}
+		\tkzDefPoint(0,3){p_{1}}\tkzDefPoint(3,4){p_{2}}
+		\tkzDefPoint(1,1){p_{3}}\tkzDefPoint(1.5,2.5){A}
+		\tkzDefPoint(4.5,4){B}\tkzDefPoint(2.5,.5.5){C}
+		\tkzDrawSegments(p_{1},p_{2} p_{2},p_{3} p_{3},p_{1})
+		\tkzDrawPoint(p_{1})
+		\tkzDrawPoint(p_{2})
+		\tkzDrawPoint(p_{3})
+		\tkzLabelPoints[above left](p_{1})
+		\tkzLabelPoints[above left](p_{2})
+		\tkzLabelPoints[below left](p_{3})
+		\draw [-latex, thick, shorten >= 1.00cm] (p_{1}) -- (A);
+		\draw [-latex, thick, shorten >= 1.00cm] (p_{2}) -- (B);
+		\draw [-latex, thick, shorten >= 1.00cm] (p_{3}) -- (C);
+	\end{tikzpicture}
+	\caption{The correctly oriented triangle of the three-dimensional mesh}
+	\label{triangle}
+\end{figure}
+
+In order to filter out depth that is further than the intended value, the software looks at the square where the point of interest is the upper left corner.  If all four points are outside of the depth range, that point is skipped. If any of the four points on that square are within the depth range, the square is constructed. For the square, any point that is not within the depth range is given the depth of the back wall, the value specified by the user. Lastly, the back wall of the three-dimensional reconstruction is built. A loop goes through every point that is already in the three-dimensional point collection and each point is copied to the end of the collection with the depth changed to the depth of the back wall. The same number of orientation vectors are added to the collection of three-dimensional vectors, each one equaling [0,0,-1]. 
 \cite{cite8}
 
 % G-code Conversion
